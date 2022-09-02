@@ -18,8 +18,8 @@ public class LoginActivity extends AppCompatActivity {
 
     public static String TAG = "LoginActivity";
 
-    EditText username;
-    EditText password;
+    EditText etUsername;
+    EditText etPassword;
     Button btnSignin;
 
     @Override
@@ -33,15 +33,15 @@ public class LoginActivity extends AppCompatActivity {
 //        }
 
 
-        username = findViewById(R.id.username);
-        password = findViewById(R.id.passwod);
+        etUsername = findViewById(R.id.username);
+        etPassword = findViewById(R.id.passwod);
         btnSignin = findViewById(R.id.btnSignin);
 
         btnSignin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String userName = username.getText().toString();
-                String passWord = password.getText().toString();
+                String userName = etUsername.getText().toString();
+                String passWord = etPassword.getText().toString();
                 loginUser(userName,passWord);
             }
         });
@@ -58,8 +58,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void done(ParseUser user, ParseException e) {
                 if(e != null){
-                    Log.e(TAG, "Issue with login");
-
+                    Log.e(TAG, "Issue with login", e);
                     Toast.makeText(LoginActivity.this, "Issue with login", Toast.LENGTH_SHORT).show();
                     return;
                 }
