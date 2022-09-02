@@ -13,6 +13,7 @@ import android.widget.Toast;
 import com.parse.LogInCallback;
 import com.parse.ParseException;
 import com.parse.ParseUser;
+import com.parse.SignUpCallback;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -20,23 +21,26 @@ public class LoginActivity extends AppCompatActivity {
 
     EditText etUsername;
     EditText etPassword;
-    Button btnSignin;
+    Button btnSignin, btnSignUp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-//        if(ParseUser.getCurrentUser() != null){
-//            goMainActivity();
-//
-//        }
+        if(ParseUser.getCurrentUser() != null){
+            goMainActivity();
+
+        }
 
 
         etUsername = findViewById(R.id.username);
         etPassword = findViewById(R.id.passwod);
         btnSignin = findViewById(R.id.btnSignin);
+        btnSignUp = findViewById(R.id.btnSignup);
 
+
+        // user clicks to login
         btnSignin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -47,12 +51,47 @@ public class LoginActivity extends AppCompatActivity {
         });
 
 
-
+        // user clicks to signup
+        btnSignUp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String userName = etUsername.getText().toString();
+                String passWord = etPassword.getText().toString();
+                SignUp(userName,passWord);
+            }
+        });
 
 
 
     }
 
+    // signUp methode
+    private void SignUp(String userName, String passWord) {
+        // Create the ParseUser
+        ParseUser user = new ParseUser();
+        // Set core properties
+        user.setUsername(userName);
+        user.setPassword(passWord);
+            // Set custom properties
+            // Invoke signUpInBackground
+        user.signUpInBackground(new SignUpCallback() {
+            public void done(ParseException e) {
+                if (e == null) {
+                    // Hooray! Let them use the app now.
+                    goMainActivity();
+
+                } else {
+                    // Sign up didn't succeed. Look at the ParseException
+                    // to figure out what went wrong
+                    Log.e(TAG, "Issue with signup", e);
+                    Toast.makeText(LoginActivity.this, "Issue with login", Toast.LENGTH_SHORT).show();
+
+                }
+            }
+        });
+    }
+
+    //login methode
     private void loginUser(String userName, String passWord) {
         ParseUser.logInInBackground(userName, passWord, new LogInCallback() {
             @Override
