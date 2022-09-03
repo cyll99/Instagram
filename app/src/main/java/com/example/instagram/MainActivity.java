@@ -2,6 +2,7 @@ package com.example.instagram;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.FileProvider;
 
 import android.content.Intent;
@@ -44,19 +45,22 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
         et_description = findViewById(R.id.description);
-        btnTakePicture = findViewById(R.id.btnCapture);
+//        btnTakePicture = findViewById(R.id.btnCapture);
         btnSubmit = findViewById(R.id.btnSubmit);
         ivImage = findViewById(R.id.image);
 
 //        queryPost();
 
-        btnTakePicture.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                launchCamera();
-            }
-        });
+//        btnTakePicture.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                launchCamera();
+//            }
+//        });
         btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
