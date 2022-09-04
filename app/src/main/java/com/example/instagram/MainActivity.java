@@ -36,9 +36,8 @@ public class MainActivity extends AppCompatActivity {
     public String photoFileName = "photo.jpg";
 
     EditText et_description;
-    Button btnTakePicture;
-    Button btnSubmit;
-    ImageView ivImage;
+    Button btnTakePicture,btnSubmit, btnLogout;
+    ImageView ivImage, home, profile, create;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,18 +48,73 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         et_description = findViewById(R.id.description);
-//        btnTakePicture = findViewById(R.id.btnCapture);
+        btnTakePicture = findViewById(R.id.btnTakePic);
+        btnLogout = findViewById(R.id.btnLogout);
         btnSubmit = findViewById(R.id.btnSubmit);
         ivImage = findViewById(R.id.image);
 
+        home = findViewById(R.id.home);
+        profile = findViewById(R.id.profil);
+        create = findViewById(R.id.plus);
+
+
 //        queryPost();
 
-//        btnTakePicture.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                launchCamera();
-//            }
-//        });
+        // hide layouts when user first arrives on the page
+
+        et_description.setVisibility(View.INVISIBLE);
+        btnTakePicture.setVisibility(View.INVISIBLE);
+        btnLogout.setVisibility(View.INVISIBLE);
+        btnSubmit.setVisibility(View.INVISIBLE);
+        ivImage.setVisibility(View.INVISIBLE);
+
+
+
+        btnLogout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ParseUser.logOut();
+                Intent i = new Intent(MainActivity.this, LoginActivity.class);
+                startActivity(i);
+                finish();
+
+            }
+        });
+
+
+        create.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                btnTakePicture.setVisibility(View.VISIBLE);
+
+                // hide unused layout
+                btnSubmit.setVisibility(View.INVISIBLE);
+                ivImage.setVisibility(View.INVISIBLE);
+                et_description.setVisibility(View.INVISIBLE);
+
+
+            }
+        });
+
+        profile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                et_description.setVisibility(View.INVISIBLE);
+                btnTakePicture.setVisibility(View.INVISIBLE);
+                btnSubmit.setVisibility(View.INVISIBLE);
+                ivImage.setVisibility(View.INVISIBLE);
+
+                btnLogout.setVisibility(View.VISIBLE);
+
+            }
+        });
+
+        btnTakePicture.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                launchCamera();
+            }
+        });
         btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -98,6 +152,9 @@ public class MainActivity extends AppCompatActivity {
             // Start the image capture intent to take photo
             startActivityForResult(intent, CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE);
         }
+
+
+
     }
 
     @Override
@@ -111,6 +168,12 @@ public class MainActivity extends AppCompatActivity {
                 // RESIZE BITMAP, see section below
                 // Load the taken image into a preview
                 ivImage.setImageBitmap(takenImage);
+
+                btnSubmit.setVisibility(View.VISIBLE);
+                ivImage.setVisibility(View.VISIBLE);
+                et_description.setVisibility(View.VISIBLE);
+
+                et_description.setVisibility(View.INVISIBLE);
             } else { // Result was a failure
                 Toast.makeText(this, "Error taking picture", Toast.LENGTH_SHORT).show();
             }

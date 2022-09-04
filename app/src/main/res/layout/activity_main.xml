@@ -17,9 +17,6 @@
         android:layout_marginBottom="10dp"
         />
 <RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_margin="16dp"
@@ -30,7 +27,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/SecondGroup"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="10dp"
         >
 
         <ImageView
@@ -48,7 +45,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/SecondGroup"
         android:layout_marginStart="60dp"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="13dp"
         android:layout_marginEnd="60dp"
         android:layout_marginBottom="60dp">
 
@@ -75,27 +72,29 @@
     </RelativeLayout>
 
     <RelativeLayout
+        android:id="@+id/LastGroup"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/ThirdGroup"
-        android:id="@+id/LastGroup"
+
+        android:layout_alignParentEnd="true"
         android:layout_marginStart="60dp"
-        android:layout_marginEnd="60dp"
-        android:layout_marginBottom="10dp"
+        android:layout_marginTop="135dp"
+        android:layout_marginEnd="62dp"
 
+        android:layout_alignParentBottom="true"
 
-        android:layout_marginTop="100dp">
+        android:layout_marginBottom="10dp">
 
         <ImageView
             android:id="@+id/home"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
 
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginBottom="10dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="5dp"
+            android:layout_marginBottom="5dp"
             app:srcCompat="@drawable/home_outline" />
 
         <ImageView
@@ -103,21 +102,66 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:layout_margin="10dp"
+
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="5dp"
+            android:layout_marginBottom="5dp"
             app:srcCompat="@drawable/plus_box" />
 
         <ImageView
             android:id="@+id/profil"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-
             android:layout_alignParentEnd="true"
+
+            android:layout_margin="5dp"
             app:srcCompat="@drawable/account_outline" />
 
     </RelativeLayout>
 
+    <RelativeLayout
+        android:id="@+id/containerBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ThirdGroup"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="9dp">
 
+        <Button
+            android:id="@+id/btnTakePic"
+
+            android:layout_width="270dp"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/edit_text"
+            android:text="Capture"
+            android:textColor="@color/black"
+            app:backgroundTint="@color/gray" />
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:id="@+id/containerBtn2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ThirdGroup"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="9dp">
+
+        <Button
+            android:id="@+id/btnLogout"
+
+            android:layout_width="270dp"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/edit_text"
+            android:text="Logout"
+            android:textColor="@color/black"
+            app:backgroundTint="@color/gray" />
+    </RelativeLayout>
 
 </RelativeLayout>
+
+
 </LinearLayout>
