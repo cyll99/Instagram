@@ -3,4 +3,6 @@
     <string name="back4app_server_url">https://parseapi.back4app.com/</string>
     <string name="back4app_app_id">2ocs4YiHO36Hue88iDP4h9Znmorh8J6dGOOcackP</string>
     <string name="back4app_client_key">y2uHLCKXQMQPZrPH4e91u2bwaMNqscJl9LujxDZK</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

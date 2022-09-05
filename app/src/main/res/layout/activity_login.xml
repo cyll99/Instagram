@@ -55,8 +55,8 @@
 
         android:ems="10"
         android:hint="password"
-        android:padding="10dp"
-        android:inputType="textPassword" />
+        android:inputType="textPassword"
+        android:padding="10dp" />
 
     <Button
         android:id="@+id/btnSignin"

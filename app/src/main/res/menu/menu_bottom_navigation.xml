@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/home"
+        app:showAsAction="always"
+        android:icon="@drawable/home_outline"
+        tools:ignore="MenuTitle" />
+
+    <item
+        android:id="@+id/plus"
+        app:showAsAction="always"
+        android:icon="@drawable/plus_box"
+        tools:ignore="MenuTitle" />
+
+    <item
+        android:id="@+id/profil"
+        app:showAsAction="always"
+        android:icon="@drawable/account_outline"
+        tools:ignore="MenuTitle" />
+
+</menu>

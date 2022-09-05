@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:fitsSystemWindows="true"
-    android:orientation="vertical"
-
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
 
     <include
         layout="@layout/toolbar2"
@@ -16,152 +15,19 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="10dp"
         />
-<RelativeLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_margin="16dp"
-    tools:context=".MainActivity">
+
+    <FrameLayout
+        android:id="@+id/flContainer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/bottom_navigation" />
 
 
-    <RelativeLayout
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottom_navigation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/SecondGroup"
-        android:layout_marginTop="10dp"
-        >
-
-        <ImageView
-            android:id="@+id/image"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            tools:srcCompat="@tools:sample/avatars" />
-
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:id="@+id/ThirdGroup"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/SecondGroup"
-        android:layout_marginStart="60dp"
-        android:layout_marginTop="13dp"
-        android:layout_marginEnd="60dp"
-        android:layout_marginBottom="60dp">
-
-        <EditText
-            android:id="@+id/description"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:layout_marginStart="10dp"
-            android:textCursorDrawable="@drawable/cursor"
-
-            app:backgroundTint="@color/pink" />
-
-        <Button
-            android:id="@+id/btnSubmit"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/description"
-            android:layout_centerHorizontal="true"
-            android:background="@drawable/edit_text"
-            android:text="Post"
-            android:textColor="@color/black"
-            app:backgroundTint="@color/gray" />
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:id="@+id/LastGroup"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/ThirdGroup"
-
-        android:layout_alignParentEnd="true"
-        android:layout_marginStart="60dp"
-        android:layout_marginTop="135dp"
-        android:layout_marginEnd="62dp"
-
         android:layout_alignParentBottom="true"
-
-        android:layout_marginBottom="10dp">
-
-        <ImageView
-            android:id="@+id/home"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-
-            android:layout_marginStart="5dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginEnd="5dp"
-            android:layout_marginBottom="5dp"
-            app:srcCompat="@drawable/home_outline" />
-
-        <ImageView
-            android:id="@+id/plus"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-
-            android:layout_marginStart="5dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginEnd="5dp"
-            android:layout_marginBottom="5dp"
-            app:srcCompat="@drawable/plus_box" />
-
-        <ImageView
-            android:id="@+id/profil"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-
-            android:layout_margin="5dp"
-            app:srcCompat="@drawable/account_outline" />
-
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:id="@+id/containerBtn"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/ThirdGroup"
-        android:layout_alignParentEnd="true"
-        android:layout_marginTop="9dp">
-
-        <Button
-            android:id="@+id/btnTakePic"
-
-            android:layout_width="270dp"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:background="@drawable/edit_text"
-            android:text="Capture"
-            android:textColor="@color/black"
-            app:backgroundTint="@color/gray" />
-    </RelativeLayout>
-
-
-    <RelativeLayout
-        android:id="@+id/containerBtn2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/ThirdGroup"
-        android:layout_alignParentEnd="true"
-        android:layout_marginTop="9dp">
-
-        <Button
-            android:id="@+id/btnLogout"
-
-            android:layout_width="270dp"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:background="@drawable/edit_text"
-            android:text="Logout"
-            android:textColor="@color/black"
-            app:backgroundTint="@color/gray" />
-    </RelativeLayout>
+        app:menu="@menu/menu_bottom_navigation" />
 
 </RelativeLayout>
-
-
-</LinearLayout>
