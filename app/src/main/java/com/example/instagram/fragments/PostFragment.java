@@ -32,8 +32,8 @@ public class PostFragment extends Fragment {
 
     RecyclerView rvPosts;
     public static final String TAG = "PostFragment";
-    private PostAdapter postAdapter;
-    private List<Post> allPosts;
+    protected PostAdapter postAdapter;
+    protected List<Post> allPosts;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -87,9 +87,11 @@ public class PostFragment extends Fragment {
         rvPosts.setLayoutManager(new LinearLayoutManager(getContext()));
         queryPost();;
     }
-    private void queryPost() {
+    protected void queryPost() {
         ParseQuery<Post> query = ParseQuery.getQuery(Post.class);
         query.include(Post.KEY_USER);
+        query.setLimit(20);
+        query.addDescendingOrder(Post.CREATED_AT);
         query.findInBackground(new FindCallback<Post>() {
             @Override
             public void done(List<Post> posts, ParseException e) {

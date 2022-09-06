@@ -73,7 +73,7 @@ public class MainActivity extends AppCompatActivity {
                         fragment = new PostFragment();
                         break;
                     case R.id.profil:
-                        fragment = new ComposeFragment();
+                        fragment = new ProfileFragment();
 
                         break;
                     case R.id.plus:
