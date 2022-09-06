@@ -28,6 +28,7 @@ import com.example.instagram.MainActivity;
 import com.example.instagram.Post;
 import com.example.instagram.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseFile;
@@ -42,6 +43,8 @@ public class ComposeFragment extends Fragment {
 
     public static final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 69;
     public static final String TAG = "ComposerFragment";
+
+
 
     EditText et_description;
     Button btnTakePicture, btnSubmit;
@@ -62,6 +65,7 @@ public class ComposeFragment extends Fragment {
         btnTakePicture = view.findViewById(R.id.btnCapture);
         ivImage = view.findViewById(R.id.image);
         pb = view.findViewById(R.id.pbLoading);
+
 
 
         btnSubmit.setVisibility(View.INVISIBLE);

@@ -97,16 +97,6 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-//        btnLogout.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                ParseUser.logOut();
-//                Intent i = new Intent(MainActivity.this, LoginActivity.class);
-//                startActivity(i);
-//                finish();
-//
-//            }
-//        });
 
 
 //        create.setOnClickListener(new View.OnClickListener() {
