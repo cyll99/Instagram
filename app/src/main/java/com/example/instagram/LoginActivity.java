@@ -32,17 +32,6 @@ public class LoginActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-//        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_arrow_back);
-
-//        getSupportActionBar().setLogo(R.drawable.ic_twitter);
-
-//        getSupportActionBar().setTitle("    Instagram");
-
-        if(ParseUser.getCurrentUser() != null){
-            goMainActivity();
-
-        }
 
 
         etUsername = findViewById(R.id.username);

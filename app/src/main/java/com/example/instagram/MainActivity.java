@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
 
     EditText et_description;
     Button btnTakePicture,btnSubmit, btnLogout;
-    ImageView ivImage, home, profile, create;
+    ImageView ivImage, profile, create;
     BottomNavigationView bottomNavigationView;
 
     @Override
@@ -52,16 +52,13 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        bottomNavigationView = findViewById(R.id.bottom_navigation);
+
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
 
 
-        home = findViewById(R.id.home);
-        profile = findViewById(R.id.profil);
-        create = findViewById(R.id.plus);
-
-//        btnLogout = findViewById(R.id.btnLogout);
 
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -100,44 +97,44 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-        btnLogout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                ParseUser.logOut();
-                Intent i = new Intent(MainActivity.this, LoginActivity.class);
-                startActivity(i);
-                finish();
-
-            }
-        });
-
-
-        create.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                btnTakePicture.setVisibility(View.VISIBLE);
-
-                // hide unused layout
-                btnSubmit.setVisibility(View.INVISIBLE);
-                ivImage.setVisibility(View.INVISIBLE);
-                et_description.setVisibility(View.INVISIBLE);
+//        btnLogout.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                ParseUser.logOut();
+//                Intent i = new Intent(MainActivity.this, LoginActivity.class);
+//                startActivity(i);
+//                finish();
+//
+//            }
+//        });
 
 
-            }
-        });
+//        create.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                btnTakePicture.setVisibility(View.VISIBLE);
+//
+//                // hide unused layout
+//                btnSubmit.setVisibility(View.INVISIBLE);
+//                ivImage.setVisibility(View.INVISIBLE);
+//                et_description.setVisibility(View.INVISIBLE);
+//
+//
+//            }
+//        });
 
-        profile.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                et_description.setVisibility(View.INVISIBLE);
-                btnTakePicture.setVisibility(View.INVISIBLE);
-                btnSubmit.setVisibility(View.INVISIBLE);
-                ivImage.setVisibility(View.INVISIBLE);
-
-                btnLogout.setVisibility(View.VISIBLE);
-
-            }
-        });
+//        profile.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                et_description.setVisibility(View.INVISIBLE);
+//                btnTakePicture.setVisibility(View.INVISIBLE);
+//                btnSubmit.setVisibility(View.INVISIBLE);
+//                ivImage.setVisibility(View.INVISIBLE);
+//
+//                btnLogout.setVisibility(View.VISIBLE);
+//
+//            }
+//        });
 
     }
 

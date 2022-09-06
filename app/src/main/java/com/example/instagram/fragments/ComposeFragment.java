@@ -1,5 +1,6 @@
 package com.example.instagram.fragments;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -37,21 +38,14 @@ import com.parse.SaveCallback;
 import java.io.File;
 import java.util.List;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link ComposeFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class ComposeFragment extends Fragment {
 
     public static final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 69;
     public static final String TAG = "ComposerFragment";
-    private static final int RESULT_OK = 69;
 
     EditText et_description;
-    Button btnTakePicture, btnSubmit, btnLogout;
-    ImageView ivImage, home, profile, create;
-    BottomNavigationView bottomNavigationView;
+    Button btnTakePicture, btnSubmit;
+    ImageView ivImage;
 
     private File photoFile;
     public String photoFileName = "photo.jpg";
@@ -59,54 +53,20 @@ public class ComposeFragment extends Fragment {
 
 
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
-    public ComposeFragment() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment ComposeFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static ComposeFragment newInstance(String param1, String param2) {
-        ComposeFragment fragment = new ComposeFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
-
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         et_description = view.findViewById(R.id.description);
 
         btnSubmit = view.findViewById(R.id.btnSubmit);
+        btnTakePicture = view.findViewById(R.id.btnCapture);
         ivImage = view.findViewById(R.id.image);
         pb = view.findViewById(R.id.pbLoading);
+
+
+        btnSubmit.setVisibility(View.INVISIBLE);
+        ivImage.setVisibility(View.INVISIBLE);
+        et_description.setVisibility(View.INVISIBLE);
 
         btnTakePicture.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -164,19 +124,19 @@ public class ComposeFragment extends Fragment {
         public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
             super.onActivityResult(requestCode, resultCode, data);
             if(requestCode ==CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE){
-                if(resultCode==RESULT_OK){
+                if(resultCode== Activity.RESULT_OK){
 
                     // by this point we have the camera photo on disk
                     Bitmap takenImage = BitmapFactory.decodeFile(photoFile.getAbsolutePath());
                     // RESIZE BITMAP, see section below
                     // Load the taken image into a preview
                     ivImage.setImageBitmap(takenImage);
+                    btnTakePicture.setVisibility(View.INVISIBLE);
 
                     btnSubmit.setVisibility(View.VISIBLE);
                     ivImage.setVisibility(View.VISIBLE);
                     et_description.setVisibility(View.VISIBLE);
 
-                    et_description.setVisibility(View.INVISIBLE);
                 } else { // Result was a failure
                     Toast.makeText(getContext(), "Error taking picture", Toast.LENGTH_SHORT).show();
                 }
@@ -217,6 +177,11 @@ public class ComposeFragment extends Fragment {
                     }
                     Log.i(TAG, "post was saved succesfully");
                     pb.setVisibility(ProgressBar.INVISIBLE);
+
+
+
+                    btnTakePicture.setVisibility(View.VISIBLE);
+
 
                     et_description.setText("");
                     ivImage.setImageResource(0);

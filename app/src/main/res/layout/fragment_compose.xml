@@ -6,6 +6,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
+
+    <include
+        layout="@layout/toolbar2"
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        />
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -16,7 +24,7 @@
         <ImageView
             android:id="@+id/image"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="100dp"
             android:layout_centerInParent="true"
             tools:srcCompat="@tools:sample/avatars" />
 
@@ -28,7 +36,6 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/SecondGroup"
         android:layout_marginStart="60dp"
-        android:layout_marginTop="13dp"
         android:layout_marginEnd="60dp"
         android:layout_marginBottom="60dp">
 
@@ -54,14 +61,31 @@
             app:backgroundTint="@color/gray" />
 
         <ProgressBar
-            android:layout_below="@+id/btnSubmit"
-            android:layout_marginTop="10dp"
-            android:layout_centerHorizontal="true"
-
             android:id="@+id/pbLoading"
-            android:visibility="invisible"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+
+            android:layout_below="@+id/btnSubmit"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"
+            android:visibility="invisible" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/Last"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ThirdGroup">
+
+        <Button
+            android:id="@+id/btnCapture"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/edit_text"
+            android:text="Capture"
+            android:textColor="@color/black"
+            app:backgroundTint="@color/gray" />
     </RelativeLayout>
 
 </LinearLayout>
