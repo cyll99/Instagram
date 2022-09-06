@@ -20,6 +20,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.instagram.MainActivity;
@@ -54,6 +55,8 @@ public class ComposeFragment extends Fragment {
 
     private File photoFile;
     public String photoFileName = "photo.jpg";
+    ProgressBar pb;
+
 
 
     // TODO: Rename parameter arguments, choose names that match
@@ -103,7 +106,7 @@ public class ComposeFragment extends Fragment {
 
         btnSubmit = view.findViewById(R.id.btnSubmit);
         ivImage = view.findViewById(R.id.image);
-
+        pb = view.findViewById(R.id.pbLoading);
 
         btnTakePicture.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -124,6 +127,9 @@ public class ComposeFragment extends Fragment {
                     return;
 
                 }
+                // on some click or some loading we need to wait for...
+                pb.setVisibility(ProgressBar.VISIBLE);
+
                 ParseUser currentUser = ParseUser.getCurrentUser();
                 savePost(Description, currentUser);
             }
@@ -210,8 +216,11 @@ public class ComposeFragment extends Fragment {
 
                     }
                     Log.i(TAG, "post was saved succesfully");
+                    pb.setVisibility(ProgressBar.INVISIBLE);
+
                     et_description.setText("");
                     ivImage.setImageResource(0);
+
                 }
             });
         }
