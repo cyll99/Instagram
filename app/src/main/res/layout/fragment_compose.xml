@@ -64,9 +64,10 @@
             android:id="@+id/pbLoading"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:indetermninateTint="@color/pink"
             android:layout_below="@+id/btnSubmit"
             android:layout_centerHorizontal="true"
+            android:indeterminate="true"
+            android:indeterminateDrawable="@drawable/progress_bg"
             android:layout_marginTop="10dp"
             android:visibility="invisible" />
     </RelativeLayout>

@@ -1,33 +1,55 @@
-package com.example.instagram;
+package com.example.instagram.fragments;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.instagram.fragments.PostFragment;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.example.instagram.R;
+import com.example.instagram.activity.LoginActivity;
+import com.example.instagram.adapter.PostAdapter;
+import com.example.instagram.models.Post;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class ProfileFragment extends PostFragment {
-    FloatingActionButton floatingBtn;
+public class ProfilFragment extends Fragment {
+    Button btnSignout;
+    RecyclerView rvPosts;
+    public static final String TAG = "ProfileFragment";
+    protected PostAdapter postAdapter;
+    protected List<Post> allPosts;
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        floatingBtn = view.findViewById(R.id.floatingBut);
+        rvPosts = view.findViewById(R.id.rvposts);
+        allPosts = new ArrayList<>();
+        postAdapter = new PostAdapter(getContext(), allPosts);
+
+        rvPosts.setAdapter(postAdapter);
+
+        rvPosts.setLayoutManager(new LinearLayoutManager(getContext()));
+        queryPost();
+
+        btnSignout = view.findViewById(R.id.btnSignout);
 
 
         //user can logout with floating button
-        floatingBtn.setOnClickListener(new View.OnClickListener() {
+        btnSignout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 ParseUser.logOut();
@@ -39,8 +61,7 @@ public class ProfileFragment extends PostFragment {
         });
     }
 
-    @Override
-    protected void queryPost() {
+    public void queryPost() {
         ParseQuery<Post> query = ParseQuery.getQuery(Post.class);
         query.include(Post.KEY_USER);
         query.setLimit(20);
@@ -63,4 +84,12 @@ public class ProfileFragment extends PostFragment {
         });
 
     }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        return inflater.inflate(R.layout.fragment_profile, container, false);
+    }
 }
+

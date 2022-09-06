@@ -16,15 +16,6 @@
         android:padding="8dp"
 
         android:layout_height="match_parent" />
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/floatingBut"
-        android:layout_gravity="bottom|right"
-        android:layout_margin="16dp"
-        android:backgroundTint="@color/pink"
-        app:layout_anchor="@id/rvposts"
-        android:text="dklsdksdfs"
-        app:layout_anchorGravity="bottom|right|end" />
+
 
 </FrameLayout>

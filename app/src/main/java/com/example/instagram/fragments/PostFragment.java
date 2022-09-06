@@ -13,8 +13,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.instagram.Post;
-import com.example.instagram.PostAdapter;
+import com.example.instagram.models.Post;
+import com.example.instagram.adapter.PostAdapter;
 import com.example.instagram.R;
 import com.parse.FindCallback;
 import com.parse.ParseException;
