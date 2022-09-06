@@ -66,12 +66,16 @@ public class ComposeFragment extends Fragment {
         ivImage.setVisibility(View.INVISIBLE);
         et_description.setVisibility(View.INVISIBLE);
 
+        // user takes picture
         btnTakePicture.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 launchCamera();
             }
         });
+
+
+        // submit posts
         btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

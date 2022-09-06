@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.example.instagram.R;
 import com.example.instagram.models.Post;
 import com.parse.ParseFile;
@@ -65,7 +66,8 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
             tvUsername.setText(post.getUser().getUsername());
             ParseFile image = post.getImage();
             if(image != null){
-                Glide.with(context).load(post.getImage().getUrl()).into(ivPhoto);
+                Glide.with(context).load(post.getImage().getUrl()) .centerCrop() // scale image to fill the entire ImageView
+                        .transform(new RoundedCorners(30)).into(ivPhoto);
 
             }
         }

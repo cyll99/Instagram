@@ -1,32 +1,28 @@
 package com.example.instagram.activity;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 
-import com.example.instagram.fragments.ProfilFragment;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+
 import com.example.instagram.R;
 import com.example.instagram.fragments.ComposeFragment;
 import com.example.instagram.fragments.PostFragment;
+import com.example.instagram.fragments.ProfilFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity {
-    public static final String TAG = "MainActivity";
-    public static final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 69;
     final FragmentManager fragmentManager = getSupportFragmentManager();
 
 
-    EditText et_description;
-    Button btnTakePicture,btnSubmit, btnLogout;
-    ImageView ivImage, profile, create;
+
     BottomNavigationView bottomNavigationView;
 
     @Override
@@ -38,8 +34,6 @@ public class MainActivity extends AppCompatActivity {
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-
 
 
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -74,39 +68,6 @@ public class MainActivity extends AppCompatActivity {
         bottomNavigationView.setSelectedItemId(R.id.home);
 
 
-
-
-
-
-
-
-
-//        create.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                btnTakePicture.setVisibility(View.VISIBLE);
-//
-//                // hide unused layout
-//                btnSubmit.setVisibility(View.INVISIBLE);
-//                ivImage.setVisibility(View.INVISIBLE);
-//                et_description.setVisibility(View.INVISIBLE);
-//
-//
-//            }
-//        });
-
-//        profile.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                et_description.setVisibility(View.INVISIBLE);
-//                btnTakePicture.setVisibility(View.INVISIBLE);
-//                btnSubmit.setVisibility(View.INVISIBLE);
-//                ivImage.setVisibility(View.INVISIBLE);
-//
-//                btnLogout.setVisibility(View.VISIBLE);
-//
-//            }
-//        });
 
     }
 

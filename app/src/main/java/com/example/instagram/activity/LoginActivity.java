@@ -1,8 +1,5 @@
 package com.example.instagram.activity;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -10,6 +7,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import com.example.instagram.R;
 import com.parse.LogInCallback;
@@ -34,7 +34,6 @@ public class LoginActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
 
-
         etUsername = findViewById(R.id.username);
         etPassword = findViewById(R.id.passwod);
         btnSignin = findViewById(R.id.btnSignin);
@@ -47,7 +46,7 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View view) {
                 String userName = etUsername.getText().toString();
                 String passWord = etPassword.getText().toString();
-                loginUser(userName,passWord);
+                loginUser(userName, passWord);
             }
         });
 
@@ -58,10 +57,9 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View view) {
                 String userName = etUsername.getText().toString();
                 String passWord = etPassword.getText().toString();
-                SignUp(userName,passWord);
+                SignUp(userName, passWord);
             }
         });
-
 
 
     }
@@ -73,8 +71,8 @@ public class LoginActivity extends AppCompatActivity {
         // Set core properties
         user.setUsername(userName);
         user.setPassword(passWord);
-            // Set custom properties
-            // Invoke signUpInBackground
+        // Set custom properties
+        // Invoke signUpInBackground
         user.signUpInBackground(new SignUpCallback() {
             public void done(ParseException e) {
                 if (e == null) {
@@ -97,7 +95,7 @@ public class LoginActivity extends AppCompatActivity {
         ParseUser.logInInBackground(userName, passWord, new LogInCallback() {
             @Override
             public void done(ParseUser user, ParseException e) {
-                if(e != null){
+                if (e != null) {
                     Log.e(TAG, "Issue with login", e);
                     Toast.makeText(LoginActivity.this, "Issue with login", Toast.LENGTH_SHORT).show();
                     return;
