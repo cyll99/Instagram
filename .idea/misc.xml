@@ -9,6 +9,8 @@
         <entry key="app/src/main/res/layout/activity_login.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.33" />
         <entry key="app/src/main/res/layout/fragment_compose.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/fragment_post.xml" value="0.19322916666666667" />
+        <entry key="app/src/main/res/layout/item_post.xml" value="0.16847826086956522" />
         <entry key="app/src/main/res/layout/toolbar.xml" value="0.25" />
         <entry key="app/src/main/res/layout/toolbar2.xml" value="0.1" />
         <entry key="app/src/main/res/menu/menu_bottom_navigation.xml" value="0.19322916666666667" />

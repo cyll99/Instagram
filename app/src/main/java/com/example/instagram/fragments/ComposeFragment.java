@@ -100,7 +100,6 @@ public class ComposeFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         et_description = view.findViewById(R.id.description);
-        btnTakePicture = view.findViewById(R.id.btnTakePic);
 
         btnSubmit = view.findViewById(R.id.btnSubmit);
         ivImage = view.findViewById(R.id.image);
@@ -217,24 +216,6 @@ public class ComposeFragment extends Fragment {
             });
         }
 
-        private void queryPost() {
-            ParseQuery<Post> query = ParseQuery.getQuery(Post.class);
-            query.include(Post.KEY_USER);
-            query.findInBackground(new FindCallback<Post>() {
-                @Override
-                public void done(List<Post> posts, ParseException e) {
-                    if(e != null){
-                        Log.e(TAG,"issue findind post", e);
-                        return;
-                    }
-                    for (Post post: posts){
-                        Log.i(TAG, "Post: "+ post.getDescription() + " user: " +post.getUser().getUsername());
-
-                    }
-                }
-            });
-
-        }
 
 
 
