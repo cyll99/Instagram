@@ -49,21 +49,35 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
     public  class ViewHolder extends RecyclerView.ViewHolder{
 
         private TextView tvUsername;
+        private TextView tvCreatedAt;
         private ImageView ivPhoto;
 
         private TextView tvDescription;
 
+        private TextView icon_heart;
+        private TextView icon_save;
+        private TextView icon_comment;
+        private TextView icon_send;
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             tvUsername = itemView.findViewById(R.id.username);
+            tvCreatedAt = itemView.findViewById(R.id.createdAt);
             tvDescription = itemView.findViewById(R.id.description);
             ivPhoto = itemView.findViewById(R.id.photo);
+
+            icon_heart = itemView.findViewById(R.id.heart);
+            icon_save = itemView.findViewById(R.id.save);
+            icon_comment = itemView.findViewById(R.id.comment);
+            icon_send = itemView.findViewById(R.id.send);
+
 
         }
 
         public void bind(Post post) {
             tvDescription.setText(post.getDescription());
             tvUsername.setText(post.getUser().getUsername());
+            tvCreatedAt.setText(post.getCreatedAt().toString());
             ParseFile image = post.getImage();
             if(image != null){
                 Glide.with(context).load(post.getImage().getUrl()) .centerCrop() // scale image to fill the entire ImageView

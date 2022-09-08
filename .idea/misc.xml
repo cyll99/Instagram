@@ -3,7 +3,10 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="app/src/main/res/drawable-v24/heart_outline.xml" value="0.209375" />
+        <entry key="app/src/main/res/drawable-v24/ic_heart.xml" value="0.209375" />
         <entry key="app/src/main/res/drawable/account.xml" value="0.209375" />
+        <entry key="app/src/main/res/drawable/comment_outline.xml" value="0.209375" />
         <entry key="app/src/main/res/drawable/cursor.xml" value="0.209375" />
         <entry key="app/src/main/res/drawable/edit_text.xml" value="0.209375" />
         <entry key="app/src/main/res/drawable/progress_bg.xml" value="0.209375" />
@@ -13,9 +16,9 @@
         <entry key="app/src/main/res/layout/fragment_post.xml" value="0.19322916666666667" />
         <entry key="app/src/main/res/layout/fragment_profil.xml" value="0.12771739130434784" />
         <entry key="app/src/main/res/layout/fragment_profile.xml" value="0.12771739130434784" />
-        <entry key="app/src/main/res/layout/item_post.xml" value="0.16847826086956522" />
+        <entry key="app/src/main/res/layout/item_post.xml" value="0.25" />
         <entry key="app/src/main/res/layout/toolbar.xml" value="0.25" />
-        <entry key="app/src/main/res/layout/toolbar2.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/toolbar2.xml" value="0.22" />
         <entry key="app/src/main/res/menu/menu_bottom_navigation.xml" value="0.19322916666666667" />
       </map>
     </option>
