@@ -39,6 +39,11 @@ public class LoginActivity extends AppCompatActivity {
         btnSignin = findViewById(R.id.btnSignin);
         btnSignUp = findViewById(R.id.btnSignup);
 
+        if(ParseUser.getCurrentUser() != null){
+            goMainActivity();
+
+        }
+
 
         // user clicks to login
         btnSignin.setOnClickListener(new View.OnClickListener() {
