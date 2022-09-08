@@ -28,13 +28,22 @@ import java.util.List;
 
 public class ProfilFragment extends Fragment {
     Button btnSignout;
+    RecyclerView rvPosts;
     public static final String TAG = "ProfileFragment";
-
+    PostAdapter postAdapter;
+    List<Post> allPosts;
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        rvPosts = view.findViewById(R.id.rvposts);
+        allPosts = new ArrayList<>();
+        postAdapter = new PostAdapter(getContext(), allPosts);
 
+        rvPosts.setAdapter(postAdapter);
+
+        rvPosts.setLayoutManager(new LinearLayoutManager(getContext()));
+        queryPost();
 
         btnSignout = view.findViewById(R.id.btnSignout);
 
@@ -46,11 +55,35 @@ public class ProfilFragment extends Fragment {
                 ParseUser.logOut();
                 Intent i = new Intent(getContext(), LoginActivity.class);
                 startActivity(i);
+//                finish();
 
             }
         });
     }
 
+    public void queryPost() {
+        ParseQuery<Post> query = ParseQuery.getQuery(Post.class);
+        query.include(Post.KEY_USER);
+        query.setLimit(20);
+        query.whereEqualTo(Post.KEY_USER, ParseUser.getCurrentUser());
+        query.addDescendingOrder(Post.CREATED_AT);
+        query.findInBackground(new FindCallback<Post>() {
+            @Override
+            public void done(List<Post> posts, ParseException e) {
+                if(e != null){
+                    Log.e(TAG,"issue findind post", e);
+                    return;
+                }
+                for (Post post: posts){
+                    Log.i(TAG, "Post: "+ post.getDescription() + " user: " +post.getUser().getUsername());
+
+                }
+                allPosts.addAll(posts);
+                postAdapter.notifyDataSetChanged();
+            }
+        });
+
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
