@@ -17,6 +17,7 @@ public class Post extends ParseObject {
     public String getDescription(){
         return getString(KEY_DESCRIPTION);
     }
+    public String getDate(){return CREATED_AT;}
 
     public void setDescription(String description){
             put(KEY_DESCRIPTION, description);

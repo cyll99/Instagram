@@ -18,6 +18,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.example.instagram.R;
 import com.example.instagram.activity.DetailActivity;
+import com.example.instagram.helper.TimeFormatter;
 import com.example.instagram.models.Post;
 import com.parse.ParseFile;
 
@@ -91,6 +92,12 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
         }
 
         public void bind(Post post) {
+            String timeDifference = TimeFormatter.getTimeDifference(post.getCreatedAt().toString());
+            String username = post.getUser().getUsername();
+            String description = post.getDescription();
+            String picture_url = post.getImage().getUrl();
+            String timestamp =TimeFormatter.getTimeStamp(post.getCreatedAt().toString());
+
 
             container.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -99,10 +106,10 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
 
                     Intent i =  new Intent(context, DetailActivity.class);
 
-                    i.putExtra("username", post.getUser().getUsername());
-                    i.putExtra("date", post.getCreatedAt().toString());
-                    i.putExtra("description", post.getDescription());
-                    i.putExtra("picture", post.getImage().getUrl());
+                    i.putExtra("username",username) ;
+                    i.putExtra("date", timestamp);
+                    i.putExtra("description", description);
+                    i.putExtra("picture", picture_url);
 
 
 
@@ -115,12 +122,12 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
             });
 
 
-            tvDescription.setText(post.getDescription());
-            tvUsername.setText(post.getUser().getUsername());
-            tvCreatedAt.setText(post.getCreatedAt().toString());
+            tvDescription.setText(description);
+            tvUsername.setText(username);
+            tvCreatedAt.setText(timeDifference);
             ParseFile image = post.getImage();
             if(image != null){
-                Glide.with(context).load(post.getImage().getUrl()) .centerCrop() // scale image to fill the entire ImageView
+                Glide.with(context).load(picture_url) .centerCrop() // scale image to fill the entire ImageView
                         .transform(new RoundedCorners(30)).into(ivPhoto);
 
             }
