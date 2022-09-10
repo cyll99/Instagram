@@ -36,14 +36,14 @@ public class ProfilFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        rvPosts = view.findViewById(R.id.rvposts);
-        allPosts = new ArrayList<>();
-        postAdapter = new PostAdapter(getContext(), allPosts);
-
-        rvPosts.setAdapter(postAdapter);
-
-        rvPosts.setLayoutManager(new LinearLayoutManager(getContext()));
-        queryPost();
+//        rvPosts = view.findViewById(R.id.rvposts);
+//        allPosts = new ArrayList<>();
+//        postAdapter = new PostAdapter(getContext(), allPosts);
+//
+//        rvPosts.setAdapter(postAdapter);
+//
+//        rvPosts.setLayoutManager(new LinearLayoutManager(getContext()));
+//        queryPost();
 
         btnSignout = view.findViewById(R.id.btnSignout);
 
@@ -55,7 +55,6 @@ public class ProfilFragment extends Fragment {
                 ParseUser.logOut();
                 Intent i = new Intent(getContext(), LoginActivity.class);
                 startActivity(i);
-//                finish();
 
             }
         });

@@ -68,7 +68,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
 
         TextView tvUsername,tvCreatedAt,tvDescription;
 
-        ImageView ivPhoto;
+        ImageView ivPhoto, ivProfile;
 
 
         TextView icon_heart,icon_save,icon_comment,icon_send;
@@ -81,6 +81,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
             tvCreatedAt = itemView.findViewById(R.id.createdAt);
             tvDescription = itemView.findViewById(R.id.description);
             ivPhoto = itemView.findViewById(R.id.photo);
+            ivProfile = itemView.findViewById(R.id.profile);
 
             icon_heart = itemView.findViewById(R.id.heart);
             icon_save = itemView.findViewById(R.id.save);
@@ -96,6 +97,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
             String username = post.getUser().getUsername();
             String description = post.getDescription();
             String picture_url = post.getImage().getUrl();
+            String profile_url = post.getProfile().getUrl();
             String timestamp =TimeFormatter.getTimeStamp(post.getCreatedAt().toString());
 
 
@@ -126,8 +128,11 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
             tvUsername.setText(username);
             tvCreatedAt.setText(timeDifference);
             ParseFile image = post.getImage();
+
+            Glide.with(context).load(profile_url).placeholder(R.drawable.profile)
+                    .transform(new RoundedCorners(30)).into(ivPhoto);
             if(image != null){
-                Glide.with(context).load(picture_url) .centerCrop() // scale image to fill the entire ImageView
+                Glide.with(context).load(picture_url)
                         .transform(new RoundedCorners(30)).into(ivPhoto);
 
             }

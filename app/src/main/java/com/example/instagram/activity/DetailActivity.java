@@ -50,7 +50,7 @@ public class DetailActivity extends AppCompatActivity {
         tvUsername.setText(username);
         tvCreatedAt.setText(date);
 
-        Glide.with(DetailActivity.this).load(picture_url) .centerCrop() // scale image to fill the entire ImageView
+        Glide.with(DetailActivity.this).load(picture_url)
                 .transform(new RoundedCorners(30)).into(ivPhoto);
 
 
