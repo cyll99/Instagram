@@ -7,7 +7,10 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.example.instagram.R;
+import com.parse.ParseFile;
 
 public class DetailActivity extends AppCompatActivity {
 
@@ -36,5 +39,20 @@ public class DetailActivity extends AppCompatActivity {
         icon_send = findViewById(R.id.share);
 
         container = findViewById(R.id.container);
+
+        String username = getIntent().getStringExtra("username");
+        String description = getIntent().getStringExtra("description");
+        String date = getIntent().getStringExtra("date");
+        String picture_url = getIntent().getStringExtra("picture");
+
+
+        tvDescription.setText(description);
+        tvUsername.setText(username);
+        tvCreatedAt.setText(date);
+
+        Glide.with(DetailActivity.this).load(picture_url) .centerCrop() // scale image to fill the entire ImageView
+                .transform(new RoundedCorners(30)).into(ivPhoto);
+
+
     }
 }

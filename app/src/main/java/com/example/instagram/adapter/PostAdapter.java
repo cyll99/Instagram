@@ -86,7 +86,14 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
                     // 2 Navigate on new activity on tap
 
                     Intent i =  new Intent(context, DetailActivity.class);
-//                    i.putExtra("movie", Parcels.wrap(movie));
+
+                    i.putExtra("username", post.getUser().getUsername());
+                    i.putExtra("date", post.getCreatedAt().toString());
+                    i.putExtra("description", post.getDescription());
+                    i.putExtra("picture", post.getImage().getUrl());
+
+
+
                     ActivityOptionsCompat options = ActivityOptionsCompat.
                             makeSceneTransitionAnimation((Activity) context, ivPhoto, "detail");
 
