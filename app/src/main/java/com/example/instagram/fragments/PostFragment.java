@@ -7,6 +7,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -27,10 +28,12 @@ import java.util.List;
 public class PostFragment extends Fragment {
 
     RecyclerView rvPosts;
+    private SwipeRefreshLayout swipeContainer;
+
+
     public static final String TAG = "PostFragment";
     protected PostAdapter postAdapter;
     protected List<Post> allPosts;
-
 
 
     @Override
@@ -42,9 +45,34 @@ public class PostFragment extends Fragment {
 
         rvPosts.setAdapter(postAdapter);
 
+        swipeContainer = (SwipeRefreshLayout) view.findViewById(R.id.swipeContainer);
+        // Setup refresh listener which triggers new data loading
+        swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+
+                postAdapter.clear();
+                // ...the data has come back, add new items to your adapter...
+                postAdapter.addAll(allPosts);
+                queryPost();
+
+                // Now we call setRefreshing(false) to signal refresh has finished
+                swipeContainer.setRefreshing(false);
+            }
+        });
+        // Configure the refreshing colors
+        swipeContainer.setColorSchemeResources(R.color.pink);
+
+
         rvPosts.setLayoutManager(new LinearLayoutManager(getContext()));
         queryPost();
+
+
     }
+
+
+
+    // query all post
     protected void queryPost() {
         ParseQuery<Post> query = ParseQuery.getQuery(Post.class);
         query.include(Post.KEY_USER);
