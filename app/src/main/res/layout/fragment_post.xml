@@ -11,7 +11,7 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
-        android:layout_margin="30dp"
+        android:layout_marginTop="90dp"
         android:id="@+id/rvposts"
         android:padding="8dp"
 
