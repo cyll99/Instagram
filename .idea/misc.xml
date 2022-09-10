@@ -10,6 +10,7 @@
         <entry key="app/src/main/res/drawable/cursor.xml" value="0.209375" />
         <entry key="app/src/main/res/drawable/edit_text.xml" value="0.209375" />
         <entry key="app/src/main/res/drawable/progress_bg.xml" value="0.209375" />
+        <entry key="app/src/main/res/layout/activity_detail.xml" value="0.19322916666666667" />
         <entry key="app/src/main/res/layout/activity_login.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.33" />
         <entry key="app/src/main/res/layout/fragment_compose.xml" value="0.1" />

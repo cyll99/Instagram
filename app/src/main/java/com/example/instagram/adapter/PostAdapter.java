@@ -1,5 +1,6 @@
 package com.example.instagram.adapter;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -10,6 +11,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.core.app.ActivityOptionsCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -51,16 +53,13 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
 
     public  class ViewHolder extends RecyclerView.ViewHolder{
 
-        private TextView tvUsername;
-        private TextView tvCreatedAt;
-        private ImageView ivPhoto;
+        TextView tvUsername,tvCreatedAt,tvDescription;
 
-        private TextView tvDescription;
+        ImageView ivPhoto;
 
-        private TextView icon_heart;
-        private TextView icon_save;
-        private TextView icon_comment;
-        private TextView icon_send;
+
+        TextView icon_heart,icon_save,icon_comment,icon_send;
+
         RelativeLayout container;
 
         public ViewHolder(@NonNull View itemView) {
@@ -73,7 +72,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
             icon_heart = itemView.findViewById(R.id.heart);
             icon_save = itemView.findViewById(R.id.save);
             icon_comment = itemView.findViewById(R.id.comment);
-            icon_send = itemView.findViewById(R.id.send);
+            icon_send = itemView.findViewById(R.id.share);
 
             container = itemView.findViewById(R.id.container);
 
@@ -88,8 +87,10 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
 
                     Intent i =  new Intent(context, DetailActivity.class);
 //                    i.putExtra("movie", Parcels.wrap(movie));
+                    ActivityOptionsCompat options = ActivityOptionsCompat.
+                            makeSceneTransitionAnimation((Activity) context, ivPhoto, "detail");
 
-                    context.startActivity(i);
+                    context.startActivity(i, options.toBundle());
 
                 }
             });
