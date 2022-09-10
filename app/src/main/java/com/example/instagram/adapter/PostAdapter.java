@@ -1,10 +1,12 @@
 package com.example.instagram.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -13,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.example.instagram.R;
+import com.example.instagram.activity.DetailActivity;
 import com.example.instagram.models.Post;
 import com.parse.ParseFile;
 
@@ -58,6 +61,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
         private TextView icon_save;
         private TextView icon_comment;
         private TextView icon_send;
+        RelativeLayout container;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -71,10 +75,26 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
             icon_comment = itemView.findViewById(R.id.comment);
             icon_send = itemView.findViewById(R.id.send);
 
+            container = itemView.findViewById(R.id.container);
 
         }
 
         public void bind(Post post) {
+
+            container.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    // 2 Navigate on new activity on tap
+
+                    Intent i =  new Intent(context, DetailActivity.class);
+//                    i.putExtra("movie", Parcels.wrap(movie));
+
+                    context.startActivity(i);
+
+                }
+            });
+
+
             tvDescription.setText(post.getDescription());
             tvUsername.setText(post.getUser().getUsername());
             tvCreatedAt.setText(post.getCreatedAt().toString());
