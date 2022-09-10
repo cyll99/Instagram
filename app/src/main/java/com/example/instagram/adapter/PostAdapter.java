@@ -21,6 +21,7 @@ import com.example.instagram.activity.DetailActivity;
 import com.example.instagram.helper.TimeFormatter;
 import com.example.instagram.models.Post;
 import com.parse.ParseFile;
+import com.parse.ParseUser;
 
 import java.util.List;
 
@@ -28,6 +29,8 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
 
     private final Context context;
     private final List<Post> posts;
+    public static final String KEY_PROFILE="profile";
+
 
     public PostAdapter(Context context, List<Post> posts) {
         this.context = context;
@@ -97,7 +100,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
             String username = post.getUser().getUsername();
             String description = post.getDescription();
             String picture_url = post.getImage().getUrl();
-            String profile_url = post.getProfile().getUrl();
+            String profile_url = post.getUser().getParseFile(KEY_PROFILE).toString();
             String timestamp =TimeFormatter.getTimeStamp(post.getCreatedAt().toString());
 
 
