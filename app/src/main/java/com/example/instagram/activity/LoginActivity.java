@@ -80,47 +80,16 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
-    //get default image from assets
-    private Bitmap getBitmapFromAsset()
-    {
-        AssetManager assetManager = getAssets();
-        InputStream istr = null;
-        try {
-            istr = assetManager.open("profile.png");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        Bitmap bitmap = BitmapFactory.decodeStream(istr);
-        return bitmap;
-    }
-
-    // convert image to parseFile
-
-    public ParseFile conversionBitmapParseFile(Bitmap imageBitmap){
-        ByteArrayOutputStream byteArrayOutputStream=new ByteArrayOutputStream();
-        imageBitmap.compress(Bitmap.CompressFormat.PNG,100,byteArrayOutputStream);
-        byte[] imageByte = byteArrayOutputStream.toByteArray();
-        ParseFile parseFile = new ParseFile("image_file.png",imageByte);
-        return parseFile;
-    }
 
     // signUp methode
     private void SignUp(String userName, String passWord) {
-        ParseFile photo = conversionBitmapParseFile(getBitmapFromAsset());
         // Create the ParseUser
         ParseUser user = new ParseUser();
         // Set core properties
         user.setUsername(userName);
         user.setPassword(passWord);
         // Set custom properties
-        photo.saveInBackground(new SaveCallback() {
-            public void done(ParseException e) {
-                // If successful add file to user and signUpInBackground
-                if(null == e)
-                    user.put(KEY_PROFILE,photo);
 
-            }
-        });
         // Invoke signUpInBackground
         user.signUpInBackground(new SignUpCallback() {
             public void done(ParseException e) {

@@ -20,6 +20,7 @@ import com.example.instagram.R;
 import com.example.instagram.activity.DetailActivity;
 import com.example.instagram.helper.TimeFormatter;
 import com.example.instagram.models.Post;
+import com.example.instagram.models.User;
 import com.parse.ParseFile;
 import com.parse.ParseUser;
 
@@ -100,7 +101,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
             String username = post.getUser().getUsername();
             String description = post.getDescription();
             String picture_url = post.getImage().getUrl();
-            String profile_url = post.getUser().getParseFile(KEY_PROFILE).toString();
+            String profile_url = ParseUser.getCurrentUser().getParseFile(KEY_PROFILE).getUrl();
             String timestamp =TimeFormatter.getTimeStamp(post.getCreatedAt().toString());
 
 
@@ -132,8 +133,8 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
             tvCreatedAt.setText(timeDifference);
             ParseFile image = post.getImage();
 
-            Glide.with(context).load(profile_url).placeholder(R.drawable.profile)
-                    .transform(new RoundedCorners(30)).into(ivPhoto);
+            Glide.with(context).load(profile_url)
+                    .transform(new RoundedCorners(30)).into(ivProfile);
             if(image != null){
                 Glide.with(context).load(picture_url)
                         .transform(new RoundedCorners(30)).into(ivPhoto);
