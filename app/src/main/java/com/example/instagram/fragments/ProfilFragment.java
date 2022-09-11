@@ -101,6 +101,8 @@ public class ProfilFragment extends Fragment {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_profile, container, false);
     }
+
+
     private void launchCamera() {
         // create Intent to take a picture and return control to the calling application
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
@@ -142,8 +144,6 @@ public class ProfilFragment extends Fragment {
     public void updateProfile( ParseUser currentUser){
         currentUser.put("profile", new ParseFile(photoFile));
     }
-//    Post post = new Post();
-//    post.getU(new ParseFile(photoFile));
 
 }
 

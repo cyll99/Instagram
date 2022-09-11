@@ -16,7 +16,7 @@ public class DetailActivity extends AppCompatActivity {
 
     TextView tvUsername,tvCreatedAt,tvDescription;
 
-    ImageView ivPhoto;
+    ImageView ivPhoto, ivProfile;
 
 
     TextView icon_heart,icon_save,icon_comment,icon_send;
@@ -32,6 +32,7 @@ public class DetailActivity extends AppCompatActivity {
         tvCreatedAt = findViewById(R.id.createdAt);
         tvDescription = findViewById(R.id.description);
         ivPhoto = findViewById(R.id.photo);
+        ivProfile = findViewById(R.id.profile);
 
         icon_heart = findViewById(R.id.heart);
         icon_save = findViewById(R.id.save);
@@ -44,12 +45,15 @@ public class DetailActivity extends AppCompatActivity {
         String description = getIntent().getStringExtra("description");
         String date = getIntent().getStringExtra("date");
         String picture_url = getIntent().getStringExtra("picture");
+        String profile_url = getIntent().getStringExtra("profile");
 
 
         tvDescription.setText(description);
         tvUsername.setText(username);
         tvCreatedAt.setText(date);
 
+        Glide.with(DetailActivity.this).load(profile_url)
+                .transform(new RoundedCorners(70)).into(ivProfile);
         Glide.with(DetailActivity.this).load(picture_url)
                 .transform(new RoundedCorners(30)).into(ivPhoto);
 

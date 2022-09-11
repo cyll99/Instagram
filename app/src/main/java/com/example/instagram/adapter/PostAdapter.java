@@ -116,6 +116,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
                     i.putExtra("date", timestamp);
                     i.putExtra("description", description);
                     i.putExtra("picture", picture_url);
+                    i.putExtra("profile", profile_url);
 
 
 
@@ -134,7 +135,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
             ParseFile image = post.getImage();
 
             Glide.with(context).load(profile_url)
-                    .transform(new RoundedCorners(30)).into(ivProfile);
+                    .transform(new RoundedCorners(70)).into(ivProfile);
             if(image != null){
                 Glide.with(context).load(picture_url)
                         .transform(new RoundedCorners(30)).into(ivPhoto);
