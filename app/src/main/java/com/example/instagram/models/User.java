@@ -5,7 +5,7 @@ import com.parse.ParseFile;
 import com.parse.ParseObject;
 import com.parse.ParseUser;
 
-@ParseClassName("User")
+@ParseClassName("_User")
 
 public class User extends ParseUser
 {

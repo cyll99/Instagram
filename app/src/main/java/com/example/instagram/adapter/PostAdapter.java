@@ -18,6 +18,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.example.instagram.R;
 import com.example.instagram.activity.DetailActivity;
+import com.example.instagram.helper.Constants;
 import com.example.instagram.helper.TimeFormatter;
 import com.example.instagram.models.Post;
 import com.example.instagram.models.User;
@@ -30,7 +31,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
 
     private final Context context;
     private final List<Post> posts;
-    public static final String KEY_PROFILE="profile";
+
 
 
     public PostAdapter(Context context, List<Post> posts) {
@@ -101,7 +102,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
             String username = post.getUser().getUsername();
             String description = post.getDescription();
             String picture_url = post.getImage().getUrl();
-            String profile_url = ParseUser.getCurrentUser().getParseFile(KEY_PROFILE).getUrl();
+            String profile_url = ParseUser.getCurrentUser().getParseFile(User.KEY_PROFILE).getUrl();
             String timestamp =TimeFormatter.getTimeStamp(post.getCreatedAt().toString());
 
 
@@ -112,11 +113,11 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
 
                     Intent i =  new Intent(context, DetailActivity.class);
 
-                    i.putExtra("username",username) ;
-                    i.putExtra("date", timestamp);
-                    i.putExtra("description", description);
-                    i.putExtra("picture", picture_url);
-                    i.putExtra("profile", profile_url);
+                    i.putExtra(Constants.USERNAME,username) ;
+                    i.putExtra(Constants.DATE, timestamp);
+                    i.putExtra(Constants.DESCRIPTION, description);
+                    i.putExtra(Constants.PICTURE_URL, picture_url);
+                    i.putExtra(Constants.PROFILE_URL, profile_url);
 
 
 
@@ -135,10 +136,10 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
             ParseFile image = post.getImage();
 
             Glide.with(context).load(profile_url)
-                    .transform(new RoundedCorners(70)).into(ivProfile);
+                    .transform(new RoundedCorners(Constants.ROUNDED_PROFILE)).into(ivProfile);
             if(image != null){
                 Glide.with(context).load(picture_url)
-                        .transform(new RoundedCorners(30)).into(ivPhoto);
+                        .transform(new RoundedCorners(Constants.ROUNDED_PICTURE)).into(ivPhoto);
 
             }
         }

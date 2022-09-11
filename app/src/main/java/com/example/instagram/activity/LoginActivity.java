@@ -15,6 +15,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import com.example.instagram.R;
+import com.example.instagram.helper.Constants;
 import com.example.instagram.models.User;
 import com.parse.LogInCallback;
 import com.parse.ParseException;
@@ -51,7 +52,7 @@ public class LoginActivity extends AppCompatActivity {
         btnSignin = findViewById(R.id.btnSignin);
         btnSignUp = findViewById(R.id.btnSignup);
 
-        if(ParseUser.getCurrentUser() != null){
+        if(Constants.CURRENT_USER != null){
             goMainActivity();
 
         }
@@ -88,7 +89,6 @@ public class LoginActivity extends AppCompatActivity {
         // Set core properties
         user.setUsername(userName);
         user.setPassword(passWord);
-        // Set custom properties
 
         // Invoke signUpInBackground
         user.signUpInBackground(new SignUpCallback() {

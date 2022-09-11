@@ -1,6 +1,9 @@
 package com.example.instagram.fragments;
 
+import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -10,31 +13,38 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.example.instagram.R;
 import com.example.instagram.activity.LoginActivity;
 import com.example.instagram.adapter.PostAdapter;
+import com.example.instagram.helper.Constants;
 import com.example.instagram.models.Post;
+import com.example.instagram.models.User;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
+import com.parse.SaveCallback;
 
 import java.io.File;
-import java.util.ArrayList;
 import java.util.List;
 
 public class ProfilFragment extends Fragment {
     Button btnSignout;
     RecyclerView rvPosts;
+    ImageView ivProfile,edit_icon;
+
     public static final String TAG = "ProfileFragment";
     public static final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 69;
 
@@ -43,6 +53,9 @@ public class ProfilFragment extends Fragment {
 
     PostAdapter postAdapter;
     List<Post> allPosts;
+
+    String profile_url = Constants.CURRENT_USER.getParseFile(User.KEY_PROFILE).getUrl();
+
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -57,7 +70,19 @@ public class ProfilFragment extends Fragment {
 //        queryPost();
 
         btnSignout = view.findViewById(R.id.btnSignout);
+        ivProfile = view.findViewById(R.id.profile);
+        edit_icon = view.findViewById(R.id.edit);
 
+
+        Glide.with(getContext()).load(profile_url)
+                .transform(new RoundedCorners(Constants.ROUNDED_PROFILE)).into(ivProfile);
+
+        edit_icon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                launchCamera();
+            }
+        });
 
         //user can logout with floating button
         btnSignout.setOnClickListener(new View.OnClickListener() {
@@ -71,11 +96,12 @@ public class ProfilFragment extends Fragment {
         });
     }
 
+
     public void queryPost() {
         ParseQuery<Post> query = ParseQuery.getQuery(Post.class);
         query.include(Post.KEY_USER);
         query.setLimit(20);
-        query.whereEqualTo(Post.KEY_USER, ParseUser.getCurrentUser());
+        query.whereEqualTo(Post.KEY_USER, Constants.CURRENT_USER);
         query.addDescendingOrder(Post.CREATED_AT);
         query.findInBackground(new FindCallback<Post>() {
             @Override
@@ -93,6 +119,25 @@ public class ProfilFragment extends Fragment {
             }
         });
 
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode ==CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE){
+            if(resultCode== Activity.RESULT_OK){
+
+                // by this point we have the camera photo on disk
+                Bitmap takenImage = BitmapFactory.decodeFile(photoFile.getAbsolutePath());
+                // RESIZE BITMAP, see section below
+                // Load the taken image into a preview
+                ivProfile.setImageBitmap(takenImage);
+                updateProfile();
+
+            } else { // Result was a failure
+                Toast.makeText(getContext(), "Error taking picture", Toast.LENGTH_SHORT).show();
+            }
+        }
     }
 
     @Override
@@ -141,8 +186,19 @@ public class ProfilFragment extends Fragment {
 
     }
 
-    public void updateProfile( ParseUser currentUser){
-        currentUser.put("profile", new ParseFile(photoFile));
+    public void updateProfile(){
+        User currentUser = (User) Constants.CURRENT_USER;
+        // Set custom properties
+        ParseFile photo = new ParseFile(photoFile);
+        photo.saveInBackground(new SaveCallback() {
+            public void done(ParseException e) {
+                // If successful add file to user and signUpInBackground
+                if(null == e)
+                    currentUser.setProfile(photo);
+//                    currentUser.add(User.KEY_PROFILE, photo);
+
+            }
+        });
     }
 
 }

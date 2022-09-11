@@ -10,6 +10,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.example.instagram.R;
+import com.example.instagram.helper.Constants;
 import com.parse.ParseFile;
 
 public class DetailActivity extends AppCompatActivity {
@@ -41,11 +42,11 @@ public class DetailActivity extends AppCompatActivity {
 
         container = findViewById(R.id.container);
 
-        String username = getIntent().getStringExtra("username");
-        String description = getIntent().getStringExtra("description");
-        String date = getIntent().getStringExtra("date");
-        String picture_url = getIntent().getStringExtra("picture");
-        String profile_url = getIntent().getStringExtra("profile");
+        String username = getIntent().getStringExtra(Constants.USERNAME);
+        String description = getIntent().getStringExtra(Constants.DESCRIPTION);
+        String date = getIntent().getStringExtra(Constants.DATE);
+        String picture_url = getIntent().getStringExtra(Constants.PICTURE_URL);
+        String profile_url = getIntent().getStringExtra(Constants.PROFILE_URL);
 
 
         tvDescription.setText(description);
@@ -53,9 +54,9 @@ public class DetailActivity extends AppCompatActivity {
         tvCreatedAt.setText(date);
 
         Glide.with(DetailActivity.this).load(profile_url)
-                .transform(new RoundedCorners(70)).into(ivProfile);
+                .transform(new RoundedCorners(Constants.ROUNDED_PROFILE)).into(ivProfile);
         Glide.with(DetailActivity.this).load(picture_url)
-                .transform(new RoundedCorners(30)).into(ivPhoto);
+                .transform(new RoundedCorners(Constants.ROUNDED_PICTURE)).into(ivPhoto);
 
 
     }
