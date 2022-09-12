@@ -12,4 +12,5 @@ public class Constants {
     public static final String USERNAME = "username";
     public static final String PROFILE_URL = "profile";
     public static final String PICTURE_URL = "picture";
+    public static final String DATA = "data";
 }

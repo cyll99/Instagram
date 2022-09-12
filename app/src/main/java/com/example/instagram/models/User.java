@@ -5,9 +5,15 @@ import com.parse.ParseFile;
 import com.parse.ParseObject;
 import com.parse.ParseUser;
 
+import org.parceler.Parcel;
+
 @ParseClassName("_User")
+@Parcel(analyze = User.class)
+
 public class User extends ParseUser
 {
+    public User(){}
+
     public static final String KEY_PROFILE="profile";
     public static final String KEY_USERNAME="username";
     public static final String KEY_PASSWORD="password";

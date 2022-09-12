@@ -11,7 +11,12 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.example.instagram.R;
 import com.example.instagram.helper.Constants;
+import com.example.instagram.helper.TimeFormatter;
+import com.example.instagram.models.Post;
+import com.example.instagram.models.User;
 import com.parse.ParseFile;
+
+import org.parceler.Parcels;
 
 public class DetailActivity extends AppCompatActivity {
 
@@ -29,6 +34,9 @@ public class DetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
 
+        Post post = Parcels.unwrap(getIntent().getParcelableExtra(Constants.DATA));
+
+
         tvUsername = findViewById(R.id.username);
         tvCreatedAt = findViewById(R.id.createdAt);
         tvDescription = findViewById(R.id.description);
@@ -42,16 +50,16 @@ public class DetailActivity extends AppCompatActivity {
 
         container = findViewById(R.id.container);
 
-        String username = getIntent().getStringExtra(Constants.USERNAME);
-        String description = getIntent().getStringExtra(Constants.DESCRIPTION);
-        String date = getIntent().getStringExtra(Constants.DATE);
-        String picture_url = getIntent().getStringExtra(Constants.PICTURE_URL);
-        String profile_url = getIntent().getStringExtra(Constants.PROFILE_URL);
+        String username = post.getUser().getUsername();
+        String description = post.getDescription();
+        String picture_url = post.getImage().getUrl();
+        String profile_url = post.getUser().getParseFile(User.KEY_PROFILE).getUrl();
+        String timestamp =TimeFormatter.getTimeStamp(post.getCreatedAt().toString());
 
 
         tvDescription.setText(description);
         tvUsername.setText(username);
-        tvCreatedAt.setText(date);
+        tvCreatedAt.setText(timestamp);
 
         Glide.with(DetailActivity.this).load(profile_url)
                 .transform(new RoundedCorners(Constants.ROUNDED_PROFILE)).into(ivProfile);

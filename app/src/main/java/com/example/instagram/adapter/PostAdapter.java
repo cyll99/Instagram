@@ -25,6 +25,8 @@ import com.example.instagram.models.User;
 import com.parse.ParseFile;
 import com.parse.ParseUser;
 
+import org.parceler.Parcels;
+
 import java.util.List;
 
 public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
@@ -103,7 +105,6 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
             String description = post.getDescription();
             String picture_url = post.getImage().getUrl();
             String profile_url = post.getUser().getParseFile(User.KEY_PROFILE).getUrl();
-            String timestamp =TimeFormatter.getTimeStamp(post.getCreatedAt().toString());
 
 
             container.setOnClickListener(new View.OnClickListener() {
@@ -112,12 +113,13 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
                     // 2 Navigate on new activity on tap
 
                     Intent i =  new Intent(context, DetailActivity.class);
+                    i.putExtra(Constants.DATA, Parcels.wrap(post));
 
-                    i.putExtra(Constants.USERNAME,username) ;
-                    i.putExtra(Constants.DATE, timestamp);
-                    i.putExtra(Constants.DESCRIPTION, description);
-                    i.putExtra(Constants.PICTURE_URL, picture_url);
-                    i.putExtra(Constants.PROFILE_URL, profile_url);
+//                    i.putExtra(Constants.USERNAME,username) ;
+//                    i.putExtra(Constants.DATE, timestamp);
+//                    i.putExtra(Constants.DESCRIPTION, description);
+//                    i.putExtra(Constants.PICTURE_URL, picture_url);
+//                    i.putExtra(Constants.PROFILE_URL, profile_url);
 
 
 
