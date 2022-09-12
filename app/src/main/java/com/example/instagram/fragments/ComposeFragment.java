@@ -27,6 +27,7 @@ import android.widget.Toast;
 import com.example.instagram.helper.Constants;
 import com.example.instagram.models.Post;
 import com.example.instagram.R;
+import com.example.instagram.models.User;
 import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.ParseUser;
@@ -93,7 +94,7 @@ public class ComposeFragment extends Fragment {
                 // on some click or some loading we need to wait for...
                 pb.setVisibility(ProgressBar.VISIBLE);
 
-                ParseUser currentUser = Constants.CURRENT_USER;
+                User currentUser = (User)Constants.CURRENT_USER;
                 savePost(Description, currentUser);
             }
         });
@@ -164,7 +165,7 @@ public class ComposeFragment extends Fragment {
 
         }
 
-        private void savePost(String description, ParseUser currentUser) {
+        private void savePost(String description, User currentUser) {
             Post post = new Post();
             post.setDescription(description);
             post.setImage(new ParseFile(photoFile));

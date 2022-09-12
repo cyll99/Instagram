@@ -85,7 +85,7 @@ public class LoginActivity extends AppCompatActivity {
     // signUp methode
     private void SignUp(String userName, String passWord) {
         // Create the ParseUser
-        ParseUser user = new ParseUser();
+        User user = new User();
         // Set core properties
         user.setUsername(userName);
         user.setPassword(passWord);

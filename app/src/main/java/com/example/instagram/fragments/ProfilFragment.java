@@ -54,7 +54,7 @@ public class ProfilFragment extends Fragment {
     PostAdapter postAdapter;
     List<Post> allPosts;
 
-    String profile_url = Constants.CURRENT_USER.getParseFile(User.KEY_PROFILE).getUrl();
+    String profile_url = ParseUser.getCurrentUser().getParseFile(User.KEY_PROFILE).getUrl();
 
 
     @Override

@@ -102,7 +102,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
             String username = post.getUser().getUsername();
             String description = post.getDescription();
             String picture_url = post.getImage().getUrl();
-            String profile_url = ParseUser.getCurrentUser().getParseFile(User.KEY_PROFILE).getUrl();
+            String profile_url = post.getUser().getParseFile(User.KEY_PROFILE).getUrl();
             String timestamp =TimeFormatter.getTimeStamp(post.getCreatedAt().toString());
 
 

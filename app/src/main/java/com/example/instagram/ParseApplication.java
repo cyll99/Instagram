@@ -6,6 +6,7 @@ import com.example.instagram.models.Post;
 import com.example.instagram.models.User;
 import com.parse.Parse;
 import com.parse.ParseObject;
+import com.parse.ParseUser;
 
 public class ParseApplication extends Application {
     @Override
@@ -14,7 +15,7 @@ public class ParseApplication extends Application {
 
         // Register your parse models
         ParseObject.registerSubclass(Post.class);
-        ParseObject.registerSubclass(User.class);
+        ParseUser.registerSubclass(User.class);
 
 
         Parse.initialize(new Parse.Configuration.Builder(this)

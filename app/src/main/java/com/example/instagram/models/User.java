@@ -6,7 +6,6 @@ import com.parse.ParseObject;
 import com.parse.ParseUser;
 
 @ParseClassName("_User")
-
 public class User extends ParseUser
 {
     public static final String KEY_PROFILE="profile";
