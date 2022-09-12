@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -53,6 +54,8 @@ public class ProfilFragment extends Fragment {
 
     PostAdapter postAdapter;
     List<Post> allPosts;
+    ProgressBar pb;
+
 
     String profile_url = ParseUser.getCurrentUser().getParseFile(User.KEY_PROFILE).getUrl();
 
@@ -73,6 +76,7 @@ public class ProfilFragment extends Fragment {
         ivProfile = view.findViewById(R.id.profile);
         edit_icon = view.findViewById(R.id.edit);
 
+        pb = view.findViewById(R.id.pbLoading);
 
         Glide.with(getContext()).load(profile_url)
                 .transform(new RoundedCorners(Constants.ROUNDED_PROFILE)).into(ivProfile);
@@ -131,8 +135,11 @@ public class ProfilFragment extends Fragment {
                 Bitmap takenImage = BitmapFactory.decodeFile(photoFile.getAbsolutePath());
                 // RESIZE BITMAP, see section below
                 // Load the taken image into a preview
-                ivProfile.setImageBitmap(takenImage);
+//                ivProfile.setImageBitmap(takenImage);
+                pb.setVisibility(ProgressBar.VISIBLE);
                 updateProfile();
+                pb.setVisibility(ProgressBar.INVISIBLE);
+
 
             } else { // Result was a failure
                 Toast.makeText(getContext(), "Error taking picture", Toast.LENGTH_SHORT).show();
@@ -196,6 +203,8 @@ public class ProfilFragment extends Fragment {
                 if(null == e)
                     currentUser.setProfile(photo);
 //                    currentUser.add(User.KEY_PROFILE, photo);
+                Glide.with(getContext()).load(profile_url)
+                        .transform(new RoundedCorners(Constants.ROUNDED_PROFILE)).into(ivProfile);
 
             }
         });

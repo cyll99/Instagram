@@ -25,6 +25,17 @@
 
             tools:srcCompat="@tools:sample/avatars" />
 
+        <ProgressBar
+            android:id="@+id/pbLoading"
+            android:layout_marginTop="40dp"
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:indeterminate="true"
+            android:indeterminateDrawable="@drawable/progress_bg"
+            android:visibility="invisible" />
+
         <ImageView
             android:id="@+id/edit"
             android:layout_marginStart="-50dp"

@@ -94,7 +94,7 @@ public class ComposeFragment extends Fragment {
                 // on some click or some loading we need to wait for...
                 pb.setVisibility(ProgressBar.VISIBLE);
 
-                User currentUser = (User)Constants.CURRENT_USER;
+                ParseUser currentUser = ParseUser.getCurrentUser();
                 savePost(Description, currentUser);
             }
         });
@@ -165,7 +165,7 @@ public class ComposeFragment extends Fragment {
 
         }
 
-        private void savePost(String description, User currentUser) {
+        private void savePost(String description, ParseUser currentUser) {
             Post post = new Post();
             post.setDescription(description);
             post.setImage(new ParseFile(photoFile));
