@@ -16,12 +16,14 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -42,12 +44,14 @@ import com.parse.SaveCallback;
 import org.parceler.Parcels;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ProfilFragment extends Fragment {
     Button btnSignout;
     RecyclerView rvPosts;
     ImageView ivProfile,edit_icon;
+    TextView username;
 
 
     public static final String TAG = "ProfileFragment";
@@ -67,23 +71,26 @@ public class ProfilFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-//        rvPosts = view.findViewById(R.id.rvposts);
-//        allPosts = new ArrayList<>();
-//        postAdapter = new PostAdapter(getContext(), allPosts);
-//
-//        rvPosts.setAdapter(postAdapter);
-//
-//        rvPosts.setLayoutManager(new LinearLayoutManager(getContext()));
-//        queryPost();
+        rvPosts = view.findViewById(R.id.rvposts);
+        allPosts = new ArrayList<>();
+        postAdapter = new PostAdapter(getContext(), allPosts);
+
+        rvPosts.setAdapter(postAdapter);
+
+        rvPosts.setLayoutManager(new LinearLayoutManager(getContext()));
+        queryPost();
 
         btnSignout = view.findViewById(R.id.btnSignout);
         ivProfile = view.findViewById(R.id.profile);
         edit_icon = view.findViewById(R.id.edit);
+        username = view.findViewById(R.id.username);
 
         pb = view.findViewById(R.id.pbLoading);
 
         Glide.with(getContext()).load(profile_url)
                 .transform(new RoundedCorners(Constants.ROUNDED_PROFILE)).into(ivProfile);
+
+        username.setText(Constants.CURRENT_USER.getUsername());
 
         edit_icon.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -24,6 +24,14 @@
             android:layout_marginTop="30dp"
 
             tools:srcCompat="@tools:sample/avatars" />
+        <TextView
+            android:id="@+id/username"
+            android:layout_marginStart="30dp"
+            android:layout_below="@+id/profile"
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TextView" />
 
         <ProgressBar
             android:id="@+id/pbLoading"
@@ -35,6 +43,22 @@
             android:indeterminate="true"
             android:indeterminateDrawable="@drawable/progress_bg"
             android:visibility="invisible" />
+        <Button
+            android:id="@+id/btnSignout"
+            android:layout_width="100dp"
+            android:layout_height="40dp"
+            android:layout_alignParentEnd="true"
+
+            android:layout_marginTop="90dp"
+
+            android:background="@drawable/edit_text"
+
+            android:text="Logout"
+            android:textColor="@color/black"
+
+            app:backgroundTint="@color/gray"
+            app:elevation="5dp" />
+
 
         <ImageView
             android:id="@+id/edit"
@@ -60,21 +84,6 @@
             android:padding="8dp" />
 
 
-        <Button
-            android:id="@+id/btnSignout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-
-            android:layout_margin="10dp"
-            android:layout_below="@+id/rvposts"
-
-            android:background="@drawable/edit_text"
-
-            android:text="Logout"
-            android:textColor="@color/black"
-
-            app:backgroundTint="@color/gray"
-            app:elevation="5dp" />
 
         <View
             android:id="@+id/divider"
