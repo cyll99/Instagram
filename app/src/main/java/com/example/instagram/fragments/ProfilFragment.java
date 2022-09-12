@@ -29,7 +29,6 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.example.instagram.R;
 import com.example.instagram.activity.LoginActivity;
-import com.example.instagram.adapter.PostAdapter;
 import com.example.instagram.adapter.ProfileAdapter;
 import com.example.instagram.helper.Constants;
 import com.example.instagram.models.Post;
@@ -144,7 +143,6 @@ public class ProfilFragment extends Fragment {
                 Bitmap takenImage = BitmapFactory.decodeFile(photoFile.getAbsolutePath());
                 // RESIZE BITMAP, see section below
                 // Load the taken image into a preview
-//                ivProfile.setImageBitmap(takenImage);
                 updateProfile();
                 pb.setVisibility(ProgressBar.INVISIBLE);
 

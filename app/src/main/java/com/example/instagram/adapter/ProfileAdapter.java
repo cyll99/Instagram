@@ -8,7 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityOptionsCompat;
@@ -19,9 +18,7 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.example.instagram.R;
 import com.example.instagram.activity.DetailActivity;
 import com.example.instagram.helper.Constants;
-import com.example.instagram.helper.TimeFormatter;
 import com.example.instagram.models.Post;
-import com.example.instagram.models.User;
 import com.parse.ParseFile;
 
 import org.parceler.Parcels;

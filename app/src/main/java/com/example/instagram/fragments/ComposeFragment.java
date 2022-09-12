@@ -24,10 +24,8 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
-import com.example.instagram.helper.Constants;
 import com.example.instagram.models.Post;
 import com.example.instagram.R;
-import com.example.instagram.models.User;
 import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.ParseUser;

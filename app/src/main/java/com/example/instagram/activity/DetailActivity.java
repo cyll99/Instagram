@@ -14,7 +14,6 @@ import com.example.instagram.helper.Constants;
 import com.example.instagram.helper.TimeFormatter;
 import com.example.instagram.models.Post;
 import com.example.instagram.models.User;
-import com.parse.ParseFile;
 
 import org.parceler.Parcels;
 

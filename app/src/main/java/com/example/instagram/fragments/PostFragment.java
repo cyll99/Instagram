@@ -82,7 +82,7 @@ public class PostFragment extends Fragment {
             @Override
             public void done(List<Post> posts, ParseException e) {
                 if(e != null){
-                    Log.e(TAG,"issue findind post", e);
+                    Log.e(TAG,"issue finding post", e);
                     return;
                 }
                 for (Post post: posts){

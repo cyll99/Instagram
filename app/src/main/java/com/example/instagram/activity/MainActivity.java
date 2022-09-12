@@ -2,9 +2,7 @@ package com.example.instagram.activity;
 
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageView;
+
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;

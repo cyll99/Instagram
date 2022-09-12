@@ -1,9 +1,7 @@
 package com.example.instagram.activity;
 
 import android.content.Intent;
-import android.content.res.AssetManager;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
+
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -19,19 +17,14 @@ import com.example.instagram.helper.Constants;
 import com.example.instagram.models.User;
 import com.parse.LogInCallback;
 import com.parse.ParseException;
-import com.parse.ParseFile;
 import com.parse.ParseUser;
-import com.parse.SaveCallback;
 import com.parse.SignUpCallback;
 
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
+
 
 public class LoginActivity extends AppCompatActivity {
 
     public static String TAG = "LoginActivity";
-    public static final String KEY_PROFILE="profile";
 
 
     EditText etUsername;
