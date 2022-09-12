@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Movie;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -31,6 +30,7 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.example.instagram.R;
 import com.example.instagram.activity.LoginActivity;
 import com.example.instagram.adapter.PostAdapter;
+import com.example.instagram.adapter.ProfileAdapter;
 import com.example.instagram.helper.Constants;
 import com.example.instagram.models.Post;
 import com.example.instagram.models.User;
@@ -40,8 +40,6 @@ import com.parse.ParseFile;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
-
-import org.parceler.Parcels;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -60,7 +58,7 @@ public class ProfilFragment extends Fragment {
     private File photoFile;
     public String photoFileName = "photo.jpg";
 
-    PostAdapter postAdapter;
+    ProfileAdapter profileAdapter;
     List<Post> allPosts;
     ProgressBar pb;
 
@@ -73,9 +71,9 @@ public class ProfilFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         rvPosts = view.findViewById(R.id.rvposts);
         allPosts = new ArrayList<>();
-        postAdapter = new PostAdapter(getContext(), allPosts);
+        profileAdapter = new ProfileAdapter(getContext(), allPosts);
 
-        rvPosts.setAdapter(postAdapter);
+        rvPosts.setAdapter(profileAdapter);
 
         rvPosts.setLayoutManager(new LinearLayoutManager(getContext()));
         queryPost();
@@ -130,7 +128,7 @@ public class ProfilFragment extends Fragment {
 
                 }
                 allPosts.addAll(posts);
-                postAdapter.notifyDataSetChanged();
+                profileAdapter.notifyDataSetChanged();
             }
         });
 
@@ -147,7 +145,6 @@ public class ProfilFragment extends Fragment {
                 // RESIZE BITMAP, see section below
                 // Load the taken image into a preview
 //                ivProfile.setImageBitmap(takenImage);
-                pb.setVisibility(ProgressBar.VISIBLE);
                 updateProfile();
                 pb.setVisibility(ProgressBar.INVISIBLE);
 
@@ -205,6 +202,8 @@ public class ProfilFragment extends Fragment {
     }
 
     public void updateProfile(){
+        pb.setVisibility(ProgressBar.VISIBLE);
+
         User currentUser = (User) Constants.CURRENT_USER;
         // Set custom properties
         ParseFile photo = new ParseFile(photoFile);
@@ -213,9 +212,7 @@ public class ProfilFragment extends Fragment {
                 // If successful add file to user and signUpInBackground
                 if(null == e)
                     currentUser.setProfile(photo);
-//                    currentUser.add(User.KEY_PROFILE, photo);
-                Glide.with(getContext()).load(profile_url)
-                        .transform(new RoundedCorners(Constants.ROUNDED_PROFILE)).into(ivProfile);
+
 
             }
         });
