@@ -204,12 +204,13 @@ public class ProfilFragment extends Fragment {
 
         User currentUser = (User) Constants.CURRENT_USER;
         // Set custom properties
-        ParseFile photo = new ParseFile(photoFile);
-        photo.saveInBackground(new SaveCallback() {
+        currentUser.setProfile(new ParseFile(photoFile));
+
+        currentUser.saveInBackground(new SaveCallback() {
             public void done(ParseException e) {
                 // If successful add file to user and signUpInBackground
-                if(null == e)
-                    currentUser.setProfile(photo);
+                if(null != e)
+                    Log.e(TAG, "Error saving");
 
 
             }
