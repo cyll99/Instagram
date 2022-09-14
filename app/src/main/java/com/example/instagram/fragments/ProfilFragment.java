@@ -87,7 +87,7 @@ public class ProfilFragment extends Fragment {
         Glide.with(getContext()).load(profile_url)
                 .transform(new RoundedCorners(Constants.ROUNDED_PROFILE)).into(ivProfile);
 
-        username.setText(Constants.CURRENT_USER.getUsername());
+        username.setText(ParseUser.getCurrentUser().getUsername());
 
         edit_icon.setOnClickListener(new View.OnClickListener() {
             @Override

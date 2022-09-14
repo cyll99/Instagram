@@ -18,6 +18,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.example.instagram.R;
 import com.example.instagram.activity.DetailActivity;
+import com.example.instagram.activity.PictureActivity;
 import com.example.instagram.helper.Constants;
 import com.example.instagram.helper.TimeFormatter;
 import com.example.instagram.models.Post;
@@ -118,7 +119,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
 
 
                     ActivityOptionsCompat options = ActivityOptionsCompat.
-                            makeSceneTransitionAnimation((Activity) context, ivPhoto, "detail");
+                            makeSceneTransitionAnimation((Activity) context, ivPhoto, Constants.TRANSITION);
 
                     context.startActivity(i, options.toBundle());
 

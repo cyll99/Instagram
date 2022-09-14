@@ -17,6 +17,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.example.instagram.R;
 import com.example.instagram.activity.DetailActivity;
+import com.example.instagram.activity.PictureActivity;
 import com.example.instagram.helper.Constants;
 import com.example.instagram.models.Post;
 import com.parse.ParseFile;
@@ -61,7 +62,6 @@ public class ProfileAdapter extends RecyclerView.Adapter<ProfileAdapter.ViewHold
 
 
 
-        RelativeLayout container;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -70,7 +70,6 @@ public class ProfileAdapter extends RecyclerView.Adapter<ProfileAdapter.ViewHold
 
 
 
-            container = itemView.findViewById(R.id.container);
 
         }
 
@@ -79,19 +78,19 @@ public class ProfileAdapter extends RecyclerView.Adapter<ProfileAdapter.ViewHold
             String picture_url = post.getImage().getUrl();
 
 
-            container.setOnClickListener(new View.OnClickListener() {
+            ivPhoto.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     // 2 Navigate on new activity on tap
 
-                    Intent i =  new Intent(context, DetailActivity.class);
+                    Intent i =  new Intent(context, PictureActivity.class);
                     i.putExtra(Constants.DATA, Parcels.wrap(post));
 
 
 
 
                     ActivityOptionsCompat options = ActivityOptionsCompat.
-                            makeSceneTransitionAnimation((Activity) context, ivPhoto, "detail");
+                            makeSceneTransitionAnimation((Activity) context, ivPhoto, Constants.TRANSITION);
 
                     context.startActivity(i, options.toBundle());
 

@@ -1,8 +1,12 @@
 package com.example.instagram.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityOptionsCompat;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -59,6 +63,25 @@ public class DetailActivity extends AppCompatActivity {
         tvDescription.setText(description);
         tvUsername.setText(username);
         tvCreatedAt.setText(timestamp);
+        ivPhoto.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // 2 Navigate on new activity on tap
+
+                Intent i =  new Intent(DetailActivity.this, PictureActivity.class);
+                i.putExtra(Constants.DATA, Parcels.wrap(post));
+
+
+
+
+                ActivityOptionsCompat options = ActivityOptionsCompat.
+                        makeSceneTransitionAnimation((Activity) DetailActivity.this, ivPhoto, Constants.TRANSITION);
+
+                DetailActivity.this.startActivity(i, options.toBundle());
+
+            }
+        });
+
 
         Glide.with(DetailActivity.this).load(profile_url)
                 .transform(new RoundedCorners(Constants.ROUNDED_PROFILE)).into(ivProfile);
