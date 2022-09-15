@@ -18,19 +18,28 @@ import com.example.instagram.helper.Constants;
 import com.example.instagram.helper.TimeFormatter;
 import com.example.instagram.models.Post;
 import com.example.instagram.models.User;
+import com.parse.ParseUser;
 
+import org.json.JSONException;
 import org.parceler.Parcels;
+
+import java.util.List;
 
 public class DetailActivity extends AppCompatActivity {
 
+    private static final String TAG = "DetailActivity";
     TextView tvUsername,tvCreatedAt,tvDescription;
 
     ImageView ivPhoto, ivProfile;
 
 
-    TextView icon_heart,icon_save,icon_comment,icon_send;
+    TextView icon_heart,icon_save,icon_comment,icon_send,icon_heart_red;
 
     RelativeLayout container;
+
+    ParseUser currentUser = ParseUser.getCurrentUser();
+    List<String> likers;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +47,12 @@ public class DetailActivity extends AppCompatActivity {
         setContentView(R.layout.activity_detail);
 
         Post post = Parcels.unwrap(getIntent().getParcelableExtra(Constants.DATA));
+
+        try {
+            likers = Post.fromJsonArray(post.getLikers()); // list of likers
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
 
 
         tvUsername = findViewById(R.id.username);
@@ -47,6 +62,7 @@ public class DetailActivity extends AppCompatActivity {
         ivProfile = findViewById(R.id.profile);
 
         icon_heart = findViewById(R.id.heart);
+        icon_heart_red = findViewById(R.id.heart_red);
         icon_save = findViewById(R.id.save);
         icon_comment = findViewById(R.id.comment);
         icon_send = findViewById(R.id.share);
@@ -60,9 +76,28 @@ public class DetailActivity extends AppCompatActivity {
         String timestamp =TimeFormatter.getTimeStamp(post.getCreatedAt().toString());
 
 
+        Constants.display_heart(icon_heart,icon_heart_red,likers, currentUser);
+
+
+
         tvDescription.setText(description);
         tvUsername.setText(username);
         tvCreatedAt.setText(timestamp);
+
+        icon_heart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Constants.UserLikes(icon_heart,icon_heart_red,currentUser,post,TAG,DetailActivity.this);
+            }
+        });
+
+        icon_heart_red.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Constants.UserDislikes(icon_heart,icon_heart_red,post,likers);
+            }
+        });
+
         ivPhoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
