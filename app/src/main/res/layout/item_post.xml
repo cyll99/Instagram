@@ -53,10 +53,22 @@
         android:layout_below="@+id/photo"
         android:layout_marginStart="5dp"
         android:layout_marginTop="5dp"
+        app:drawableLeftCompat="@drawable/heart_outline"
 
         android:drawablePadding="5dp"
         />
-<!--    app:drawableLeftCompat="@drawable/heart_outline"-->
+    <TextView
+        android:id="@+id/heart_red"
+        android:layout_width="wrap_content"
+
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/photo"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="5dp"
+        app:drawableLeftCompat="@drawable/ic_heart"
+
+        android:drawablePadding="5dp"
+        />
 
     <TextView
         android:id="@+id/comment"

@@ -3,12 +3,14 @@ package com.example.instagram.adapter;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityOptionsCompat;
@@ -23,16 +25,22 @@ import com.example.instagram.helper.Constants;
 import com.example.instagram.helper.TimeFormatter;
 import com.example.instagram.models.Post;
 import com.example.instagram.models.User;
+import com.parse.ParseException;
 import com.parse.ParseFile;
+import com.parse.ParseUser;
+import com.parse.SaveCallback;
 
+import org.json.JSONException;
 import org.parceler.Parcels;
 
 import java.util.List;
 
 public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
 
+    private static final String TAG = "PostAdapter";
     private final Context context;
     private final List<Post> posts;
+
 
 
 
@@ -51,7 +59,11 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Post post = posts.get(position);
-        holder.bind(post);
+        try {
+            holder.bind(post);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -78,9 +90,10 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
         ImageView ivPhoto, ivProfile;
 
 
-        TextView icon_heart,icon_save,icon_comment,icon_send;
+        TextView icon_heart,icon_heart_red, icon_save,icon_comment,icon_send;
 
         RelativeLayout container;
+        List<String> likers;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -91,6 +104,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
             ivProfile = itemView.findViewById(R.id.profile);
 
             icon_heart = itemView.findViewById(R.id.heart);
+            icon_heart_red = itemView.findViewById(R.id.heart_red);
             icon_save = itemView.findViewById(R.id.save);
             icon_comment = itemView.findViewById(R.id.comment);
             icon_send = itemView.findViewById(R.id.share);
@@ -99,14 +113,44 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
 
         }
 
-        public void bind(Post post) {
+        public void bind(Post post) throws JSONException {
+
+            ParseUser currentUser = ParseUser.getCurrentUser();
+
             String timeDifference = TimeFormatter.getTimeDifference(post.getCreatedAt().toString());
             String username = post.getUser().getUsername();
             String description = post.getDescription();
             String picture_url = post.getImage().getUrl();
             String profile_url = post.getUser().getParseFile(User.KEY_PROFILE).getUrl();
 
+            likers = Post.fromJsonArray(post.getLikers()); // list of likers
 
+            // set the color of the heart
+            if(likers.contains(Constants.CURRENT_USER.getObjectId())){
+                icon_heart.setVisibility(View.INVISIBLE);
+                icon_heart_red.setVisibility(View.VISIBLE);
+            }else{
+                icon_heart.setVisibility(View.VISIBLE);
+                icon_heart_red.setVisibility(View.INVISIBLE);
+            }
+
+            icon_heart_red.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                post.removeItemListLikers(likers);
+                icon_heart.setVisibility(View.VISIBLE);
+                icon_heart_red.setVisibility(View.INVISIBLE);
+
+                }
+            });
+            icon_heart.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    AddThisLiker(post,currentUser);
+                    icon_heart.setVisibility(View.INVISIBLE);
+                    icon_heart_red.setVisibility(View.VISIBLE);
+                }
+            });
             container.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -139,6 +183,25 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
                         .transform(new RoundedCorners(Constants.ROUNDED_PICTURE)).into(ivPhoto);
 
             }
+
+
         }
+    }
+    // add likers in the list
+
+    private void AddThisLiker(Post post, ParseUser currentUser) {
+
+        post.setListLikers(currentUser);
+
+
+        post.saveInBackground(new SaveCallback() {
+            @Override
+            public void done(ParseException e) {
+                if (e != null){
+                    Log.e(TAG, "Error while saving", e);
+                    Toast.makeText(context, "Error while saving", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
     }
 }
