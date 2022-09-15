@@ -1,7 +1,18 @@
 package com.example.instagram.helper;
 
+import android.content.Context;
+import android.util.Log;
+import android.view.View;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.example.instagram.models.Post;
 import com.example.instagram.models.User;
+import com.parse.ParseException;
 import com.parse.ParseUser;
+import com.parse.SaveCallback;
+
+import java.util.List;
 
 public class Constants {
     public static final int ROUNDED_PROFILE = 100;
@@ -10,4 +21,50 @@ public class Constants {
 
     public static final String DATA = "data";
     public static final String TRANSITION = "detail";
+
+    public static void display_heart(TextView blank_heart, TextView filled_heart, List<String> likers, ParseUser currentUser){
+        if(likers.contains(currentUser.getObjectId())){
+            blank_heart.setVisibility(View.INVISIBLE);
+            filled_heart.setVisibility(View.VISIBLE);
+        }else{
+            blank_heart.setVisibility(View.VISIBLE);
+            filled_heart.setVisibility(View.INVISIBLE);
+        }
+    }
+
+    //ADD USER IN LIST LIKERS WHEN HE LIKES
+    public static void UserLikes(TextView blank_heart, TextView filled_heart, ParseUser currentUser, Post post,String TAG, Context context){
+        AddThisLiker(post,currentUser,TAG,context);
+        blank_heart.setVisibility(View.INVISIBLE);
+        filled_heart.setVisibility(View.VISIBLE);
+
+    }
+
+    //REMOVE USER IN LIST LIKERS WHEN HE DISLIKES
+
+    public static void UserDislikes(TextView blank_heart, TextView filled_heart,  Post post,List<String> likers){
+        post.removeItemListLikers(likers);
+        blank_heart.setVisibility(View.VISIBLE);
+        filled_heart.setVisibility(View.INVISIBLE);
+
+    }
+
+
+//METHODE FOR ADDIG USER IN LIST LIKERS
+    private static void AddThisLiker(Post post, ParseUser currentUser, String TAG, Context context) {
+
+        post.setListLikers(currentUser);
+
+
+        post.saveInBackground(new SaveCallback() {
+            @Override
+            public void done(ParseException e) {
+                if (e != null){
+                    Log.e(TAG, "Error while saving", e);
+                    Toast.makeText(context, "Error while saving", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+    }
+
 }

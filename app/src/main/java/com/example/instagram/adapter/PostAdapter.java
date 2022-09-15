@@ -125,30 +125,20 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
 
             likers = Post.fromJsonArray(post.getLikers()); // list of likers
 
-            // set the color of the heart
-            if(likers.contains(Constants.CURRENT_USER.getObjectId())){
-                icon_heart.setVisibility(View.INVISIBLE);
-                icon_heart_red.setVisibility(View.VISIBLE);
-            }else{
-                icon_heart.setVisibility(View.VISIBLE);
-                icon_heart_red.setVisibility(View.INVISIBLE);
-            }
+
+            Constants.display_heart(icon_heart,icon_heart_red,likers, currentUser);//display the icon heart
 
             icon_heart_red.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                post.removeItemListLikers(likers);
-                icon_heart.setVisibility(View.VISIBLE);
-                icon_heart_red.setVisibility(View.INVISIBLE);
+                Constants.UserDislikes(icon_heart,icon_heart_red,post,likers);
 
                 }
             });
             icon_heart.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    AddThisLiker(post,currentUser);
-                    icon_heart.setVisibility(View.INVISIBLE);
-                    icon_heart_red.setVisibility(View.VISIBLE);
+                  Constants.UserLikes(icon_heart,icon_heart_red,currentUser,post,TAG,context);
                 }
             });
             container.setOnClickListener(new View.OnClickListener() {
@@ -187,21 +177,5 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
 
         }
     }
-    // add likers in the list
 
-    private void AddThisLiker(Post post, ParseUser currentUser) {
-
-        post.setListLikers(currentUser);
-
-
-        post.saveInBackground(new SaveCallback() {
-            @Override
-            public void done(ParseException e) {
-                if (e != null){
-                    Log.e(TAG, "Error while saving", e);
-                    Toast.makeText(context, "Error while saving", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
-    }
 }
