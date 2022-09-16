@@ -31,13 +31,17 @@ public class CommentActivity extends AppCompatActivity {
     ImageView profile;
     EditText etComment;
     Button btnComment;
-    Post post = Parcels.unwrap(getIntent().getParcelableExtra(Constants.DATA));
     public static final String TAG = "CommentActivity";
+    Post post;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_comment);
+
+        post = Parcels.unwrap(getIntent().getParcelableExtra("post"));
+
 
         Toolbar toolbar = findViewById(R.id.toolbar);
 

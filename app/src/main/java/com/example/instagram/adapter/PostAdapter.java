@@ -3,6 +3,8 @@ package com.example.instagram.adapter;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
+import android.os.Parcelable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +16,8 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityOptionsCompat;
+import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -22,6 +26,7 @@ import com.example.instagram.R;
 import com.example.instagram.activity.CommentActivity;
 import com.example.instagram.activity.DetailActivity;
 import com.example.instagram.activity.PictureActivity;
+import com.example.instagram.fragments.ProfilFragment;
 import com.example.instagram.helper.Constants;
 import com.example.instagram.helper.TimeFormatter;
 import com.example.instagram.models.Post;
@@ -93,7 +98,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
 
         TextView icon_heart,icon_heart_red, icon_save,icon_comment,icon_send;
 
-        RelativeLayout container;
+        RelativeLayout container, containerForProfile;
         List<String> likers;
 
         public ViewHolder(@NonNull View itemView) {
@@ -111,6 +116,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
             icon_send = itemView.findViewById(R.id.share);
 
             container = itemView.findViewById(R.id.container);
+            containerForProfile = itemView.findViewById(R.id.container_pro);
 
         }
 
@@ -129,6 +135,13 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
 
             Constants.display_heart(icon_heart,icon_heart_red,likers, currentUser);//display the icon heart
 
+
+            containerForProfile.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    goToProfile(Parcels.wrap(post));
+                }
+            });
             icon_heart_red.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -146,7 +159,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
                 @Override
                 public void onClick(View view) {
                     Intent i =  new Intent(context, CommentActivity.class);
-                    i.putExtra(Constants.DATA, Parcels.wrap(post));
+                    i.putExtra("post", Parcels.wrap(post));
                     context.startActivity(i);
 
                 }
@@ -186,6 +199,21 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
 
 
         }
+    }
+    // passing data to profile fragment
+    private void goToProfile(Parcelable post) {
+        Constants.setIconProfileClicked(false);
+
+        Bundle bundle = new Bundle();
+
+        bundle.putParcelable("post", post);
+
+
+        ProfilFragment profile = new ProfilFragment();
+        profile.setArguments(bundle);
+
+
+
     }
 
 }

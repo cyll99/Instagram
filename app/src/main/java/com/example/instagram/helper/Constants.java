@@ -29,6 +29,11 @@ public class Constants {
     public static final String DATA = "data";
     public static final String TRANSITION = "detail";
 
+    public static boolean iconProfileClicked = true;
+
+    public static void setIconProfileClicked(boolean value){iconProfileClicked = value;}
+
+
     public static void display_heart(TextView blank_heart, TextView filled_heart, List<String> likers, ParseUser currentUser){
         if(likers.contains(currentUser.getObjectId())){
             blank_heart.setVisibility(View.INVISIBLE);

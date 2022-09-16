@@ -11,7 +11,6 @@
         android:layout_height="40dp"
         android:layout_marginStart="5dp"
         android:layout_marginTop="2dp"
-        android:contentDescription="@string/image_profile"
         tools:srcCompat="@tools:sample/avatars" />
 
     <TextView

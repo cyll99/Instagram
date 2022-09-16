@@ -29,7 +29,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.example.instagram.R;
 import com.example.instagram.activity.LoginActivity;
-import com.example.instagram.adapter.CommentAdapter;
+import com.example.instagram.adapter.ProfileAdapter;
 import com.example.instagram.helper.Constants;
 import com.example.instagram.models.Post;
 import com.example.instagram.models.User;
@@ -39,6 +39,8 @@ import com.parse.ParseFile;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
+
+import org.parceler.Parcels;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -57,20 +59,24 @@ public class ProfilFragment extends Fragment {
     private File photoFile;
     public String photoFileName = "photo.jpg";
 
-    CommentAdapter profileAdapter;
+    ProfileAdapter profileAdapter;
     List<Post> allPosts;
     ProgressBar pb;
+    String profile_url;
+    String UserName;
+    ParseUser theUser;
 
 
-    String profile_url = ParseUser.getCurrentUser().getParseFile(User.KEY_PROFILE).getUrl();
 
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+
+
         super.onViewCreated(view, savedInstanceState);
         rvPosts = view.findViewById(R.id.rvposts);
         allPosts = new ArrayList<>();
-        profileAdapter = new CommentAdapter(getContext(), allPosts);
+        profileAdapter = new ProfileAdapter(getContext(), allPosts);
 
         rvPosts.setAdapter(profileAdapter);
 
@@ -87,7 +93,7 @@ public class ProfilFragment extends Fragment {
         Glide.with(getContext()).load(profile_url)
                 .transform(new RoundedCorners(Constants.ROUNDED_PROFILE)).into(ivProfile);
 
-        username.setText(ParseUser.getCurrentUser().getUsername());
+        username.setText(UserName);
 
         edit_icon.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -106,6 +112,20 @@ public class ProfilFragment extends Fragment {
 
             }
         });
+        if (Constants.iconProfileClicked){
+            profile_url = ParseUser.getCurrentUser().getParseFile(User.KEY_PROFILE).getUrl();
+            UserName = ParseUser.getCurrentUser().getUsername();
+            theUser = Constants.CURRENT_USER;
+        }else{
+            Bundle bundle = getArguments();
+            Post post = Parcels.unwrap(bundle.getParcelable("post"));
+
+            profile_url = post.getUser().getParseFile(User.KEY_PROFILE).getUrl();
+            UserName = post.getUser().getUsername();
+            theUser = post.getUser();
+            btnSignout.setVisibility(View.INVISIBLE);
+            edit_icon.setVisibility(View.INVISIBLE);
+        }
     }
 
 
@@ -113,7 +133,7 @@ public class ProfilFragment extends Fragment {
         ParseQuery<Post> query = ParseQuery.getQuery(Post.class);
         query.include(Post.KEY_USER);
         query.setLimit(20);
-        query.whereEqualTo(Post.KEY_USER, Constants.CURRENT_USER);
+        query.whereEqualTo(Post.KEY_USER, theUser);
         query.addDescendingOrder(Post.CREATED_AT);
         query.findInBackground(new FindCallback<Post>() {
             @Override
@@ -218,4 +238,3 @@ public class ProfilFragment extends Fragment {
     }
 
 }
-

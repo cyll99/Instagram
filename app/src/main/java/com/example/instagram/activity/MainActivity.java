@@ -14,6 +14,7 @@ import com.example.instagram.R;
 import com.example.instagram.fragments.ComposeFragment;
 import com.example.instagram.fragments.PostFragment;
 import com.example.instagram.fragments.ProfilFragment;
+import com.example.instagram.helper.Constants;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity {
@@ -45,6 +46,7 @@ public class MainActivity extends AppCompatActivity {
                         fragment = new PostFragment();
                         break;
                     case R.id.profil:
+                        Constants.setIconProfileClicked(true);
                         fragment = new ProfilFragment();
 
                         break;
