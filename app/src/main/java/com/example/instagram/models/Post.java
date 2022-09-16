@@ -25,6 +25,8 @@ public class Post extends ParseObject {
     public static final String CREATED_AT="createdAt";
     public static final String KEY_LIKERS="likers";
     public static final String KEY_NUM_LKES="numLikes";
+    public static final String KEY_COMMMENT="comments";
+
 
 
     public String getDescription(){
@@ -58,6 +60,14 @@ public class Post extends ParseObject {
         remove(KEY_LIKERS);
         put(KEY_LIKERS, listUserLike);
     }
+
+
+
+    public JSONArray getComments(){
+        return getJSONArray(KEY_COMMMENT);
+    }
+    public void setListComment(ParseObject comment){add(KEY_COMMMENT, comment);}
+
     public static List<String> fromJsonArray(JSONArray jsonArray) throws JSONException {
         List<String> likers = new ArrayList<String>();
 

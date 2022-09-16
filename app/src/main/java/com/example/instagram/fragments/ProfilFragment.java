@@ -29,7 +29,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.example.instagram.R;
 import com.example.instagram.activity.LoginActivity;
-import com.example.instagram.adapter.ProfileAdapter;
+import com.example.instagram.adapter.CommentAdapter;
 import com.example.instagram.helper.Constants;
 import com.example.instagram.models.Post;
 import com.example.instagram.models.User;
@@ -57,7 +57,7 @@ public class ProfilFragment extends Fragment {
     private File photoFile;
     public String photoFileName = "photo.jpg";
 
-    ProfileAdapter profileAdapter;
+    CommentAdapter profileAdapter;
     List<Post> allPosts;
     ProgressBar pb;
 
@@ -70,7 +70,7 @@ public class ProfilFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         rvPosts = view.findViewById(R.id.rvposts);
         allPosts = new ArrayList<>();
-        profileAdapter = new ProfileAdapter(getContext(), allPosts);
+        profileAdapter = new CommentAdapter(getContext(), allPosts);
 
         rvPosts.setAdapter(profileAdapter);
 

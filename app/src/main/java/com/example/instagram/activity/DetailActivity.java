@@ -94,7 +94,7 @@ public class DetailActivity extends AppCompatActivity {
         icon_heart_red.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Constants.UserDislikes(icon_heart,icon_heart_red,post,likers);
+                Constants.UserDislikes(icon_heart,icon_heart_red,post,likers,currentUser);
             }
         });
 

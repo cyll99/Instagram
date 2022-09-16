@@ -1,10 +1,16 @@
 package com.example.instagram.helper;
 
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.core.content.FileProvider;
+import androidx.fragment.app.Fragment;
 
 import com.example.instagram.models.Post;
 import com.example.instagram.models.User;
@@ -12,6 +18,7 @@ import com.parse.ParseException;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
 
+import java.io.File;
 import java.util.List;
 
 public class Constants {
@@ -42,7 +49,8 @@ public class Constants {
 
     //REMOVE USER IN LIST LIKERS WHEN HE DISLIKES
 
-    public static void UserDislikes(TextView blank_heart, TextView filled_heart,  Post post,List<String> likers){
+    public static void UserDislikes(TextView blank_heart, TextView filled_heart,  Post post,List<String> likers, ParseUser currentUser){
+        likers.remove(currentUser.getObjectId());
         post.removeItemListLikers(likers);
         blank_heart.setVisibility(View.VISIBLE);
         filled_heart.setVisibility(View.INVISIBLE);
@@ -66,5 +74,7 @@ public class Constants {
             }
         });
     }
+
+
 
 }

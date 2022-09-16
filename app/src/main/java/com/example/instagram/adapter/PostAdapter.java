@@ -19,6 +19,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.example.instagram.R;
+import com.example.instagram.activity.CommentActivity;
 import com.example.instagram.activity.DetailActivity;
 import com.example.instagram.activity.PictureActivity;
 import com.example.instagram.helper.Constants;
@@ -131,7 +132,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
             icon_heart_red.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                Constants.UserDislikes(icon_heart,icon_heart_red,post,likers);
+                Constants.UserDislikes(icon_heart,icon_heart_red,post,likers, currentUser);
 
                 }
             });
@@ -139,6 +140,15 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
                 @Override
                 public void onClick(View view) {
                   Constants.UserLikes(icon_heart,icon_heart_red,currentUser,post,TAG,context);
+                }
+            });
+            icon_comment.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent i =  new Intent(context, CommentActivity.class);
+                    i.putExtra(Constants.DATA, Parcels.wrap(post));
+                    context.startActivity(i);
+
                 }
             });
             container.setOnClickListener(new View.OnClickListener() {
