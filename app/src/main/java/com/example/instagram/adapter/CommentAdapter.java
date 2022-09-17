@@ -1,8 +1,7 @@
 package com.example.instagram.adapter;
 
-import android.app.Activity;
+
 import android.content.Context;
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,18 +9,14 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.core.app.ActivityOptionsCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.example.instagram.R;
-import com.example.instagram.activity.PictureActivity;
 import com.example.instagram.helper.Constants;
 import com.example.instagram.models.Comment;
-import com.parse.ParseFile;
 
-import org.parceler.Parcels;
 
 import java.util.List;
 

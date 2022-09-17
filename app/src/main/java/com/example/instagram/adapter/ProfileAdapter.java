@@ -7,7 +7,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityOptionsCompat;
@@ -16,7 +15,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.example.instagram.R;
-import com.example.instagram.activity.DetailActivity;
 import com.example.instagram.activity.PictureActivity;
 import com.example.instagram.helper.Constants;
 import com.example.instagram.models.Post;
@@ -77,7 +75,7 @@ public class ProfileAdapter extends RecyclerView.Adapter<ProfileAdapter.ViewHold
 
             String picture_url = post.getImage().getUrl();
 
-
+           // clicks on the picture to see it
             ivPhoto.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
