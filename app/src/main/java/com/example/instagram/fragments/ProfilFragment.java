@@ -24,6 +24,7 @@ import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
@@ -80,7 +81,9 @@ public class ProfilFragment extends Fragment {
 
         rvPosts.setAdapter(profileAdapter);
 
-        rvPosts.setLayoutManager(new LinearLayoutManager(getContext()));
+        StaggeredGridLayoutManager gridLayoutManager = new StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL);
+
+        rvPosts.setLayoutManager(gridLayoutManager);
         queryPost();
 
         btnSignout = view.findViewById(R.id.btnSignout);
