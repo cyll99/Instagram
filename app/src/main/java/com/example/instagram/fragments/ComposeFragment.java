@@ -163,6 +163,7 @@ public class ComposeFragment extends Fragment {
 
         }
 
+        // methode to save a post
         private void savePost(String description, ParseUser currentUser) {
             Post post = new Post();
             post.setDescription(description);

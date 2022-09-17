@@ -22,7 +22,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
@@ -79,9 +78,9 @@ public class ProfilFragment extends Fragment {
         allPosts = new ArrayList<>();
         profileAdapter = new ProfileAdapter(getContext(), allPosts);
 
-        rvPosts.setAdapter(profileAdapter);
+        rvPosts.setAdapter(profileAdapter); //set the adapter
 
-        StaggeredGridLayoutManager gridLayoutManager = new StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL);
+        StaggeredGridLayoutManager gridLayoutManager = new StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL); // set a grid layout for the pictures
 
         rvPosts.setLayoutManager(gridLayoutManager);
         queryPost();
@@ -94,10 +93,11 @@ public class ProfilFragment extends Fragment {
         pb = view.findViewById(R.id.pbLoading);
 
         Glide.with(getContext()).load(profile_url)
-                .transform(new RoundedCorners(Constants.ROUNDED_PROFILE)).into(ivProfile);
+                .transform(new RoundedCorners(Constants.ROUNDED_PROFILE)).into(ivProfile); // display the profile picture
 
         username.setText(UserName);
 
+        // user clicks to edit his profile
         edit_icon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -105,7 +105,7 @@ public class ProfilFragment extends Fragment {
             }
         });
 
-        //user can logout with floating button
+        //user clicks to logout
         btnSignout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -115,11 +115,13 @@ public class ProfilFragment extends Fragment {
 
             }
         });
-        if (Constants.iconProfileClicked){
+
+        // condition to display the user profile
+        if (Constants.iconProfileClicked){ // current user profile displayed
             profile_url = ParseUser.getCurrentUser().getParseFile(User.KEY_PROFILE).getUrl();
             UserName = ParseUser.getCurrentUser().getUsername();
             theUser = Constants.CURRENT_USER;
-        }else{
+        }else{//profile of the user chosen displayed
             Bundle bundle = getArguments();
             Post post = Parcels.unwrap(bundle.getParcelable("post"));
 
@@ -131,7 +133,7 @@ public class ProfilFragment extends Fragment {
         }
     }
 
-
+    // methode for fetching posts
     public void queryPost() {
         ParseQuery<Post> query = ParseQuery.getQuery(Post.class);
         query.include(Post.KEY_USER);
@@ -222,6 +224,8 @@ public class ProfilFragment extends Fragment {
 
     }
 
+
+    // methode to update profile
     public void updateProfile(){
         pb.setVisibility(ProgressBar.VISIBLE);
 
