@@ -16,7 +16,6 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.example.instagram.R;
 import com.example.instagram.adapter.CommentAdapter;
-import com.example.instagram.adapter.PostAdapter;
 import com.example.instagram.helper.Constants;
 import com.example.instagram.helper.TimeFormatter;
 import com.example.instagram.models.Comment;
@@ -90,7 +89,7 @@ public class DetailActivity extends AppCompatActivity {
         String timestamp =TimeFormatter.getTimeStamp(post.getCreatedAt().toString());
 
 
-        Constants.display_heart(icon_heart,icon_heart_red,likers, currentUser);
+        Constants.display_heart(icon_heart,icon_heart_red,likers, currentUser); // display a filled or empty heart (methode in constants)
 
 
 
@@ -98,6 +97,7 @@ public class DetailActivity extends AppCompatActivity {
         tvUsername.setText(username);
         tvCreatedAt.setText(timestamp);
 
+        // when user likes
         icon_heart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -105,6 +105,7 @@ public class DetailActivity extends AppCompatActivity {
             }
         });
 
+        // when user unlikes
         icon_heart_red.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -112,6 +113,7 @@ public class DetailActivity extends AppCompatActivity {
             }
         });
 
+        // user can tap on a picture to see it
         ivPhoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -133,9 +135,9 @@ public class DetailActivity extends AppCompatActivity {
 
 
         Glide.with(DetailActivity.this).load(profile_url)
-                .transform(new RoundedCorners(Constants.ROUNDED_PROFILE)).into(ivProfile);
+                .transform(new RoundedCorners(Constants.ROUNDED_PROFILE)).into(ivProfile);// display profile
         Glide.with(DetailActivity.this).load(picture_url)
-                .transform(new RoundedCorners(Constants.ROUNDED_PICTURE)).into(ivPhoto);
+                .transform(new RoundedCorners(Constants.ROUNDED_PICTURE)).into(ivPhoto); // display picture posted
 
 
     }

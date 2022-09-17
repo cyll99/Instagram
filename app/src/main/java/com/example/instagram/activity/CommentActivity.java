@@ -12,14 +12,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
+
 import com.example.instagram.R;
-import com.example.instagram.helper.Constants;
 import com.example.instagram.models.Comment;
 import com.example.instagram.models.Post;
 import com.parse.ParseException;
-import com.parse.ParseObject;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
 
@@ -40,12 +37,13 @@ public class CommentActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_comment);
 
-        post = Parcels.unwrap(getIntent().getParcelableExtra("post"));
+        post = Parcels.unwrap(getIntent().getParcelableExtra("post")); // getting post data
 
 
         Toolbar toolbar = findViewById(R.id.toolbar);
 
         setSupportActionBar(toolbar);
+
         tvUserName = findViewById(R.id.username);
         profile = findViewById(R.id.profileImage);
         etComment = findViewById(R.id.etComment);
@@ -54,6 +52,8 @@ public class CommentActivity extends AppCompatActivity {
         ParseUser currentUser = ParseUser.getCurrentUser();
         tvUserName.setText(currentUser.getUsername());
 
+
+        // When user click to comment
         btnComment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

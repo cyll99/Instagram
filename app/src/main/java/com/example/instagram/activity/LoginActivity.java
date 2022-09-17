@@ -118,7 +118,7 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-
+    // methode to go on the main activity
     private void goMainActivity() {
         Intent i = new Intent(this, MainActivity.class);
         startActivity(i);
