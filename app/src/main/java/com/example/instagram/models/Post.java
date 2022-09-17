@@ -61,6 +61,10 @@ public class Post extends ParseObject {
         put(KEY_LIKERS, listUserLike);
     }
 
+    public void setNumLikes(int num){
+        put(KEY_NUM_LKES, num);
+    }
+
 
 
     public JSONArray getComments(){

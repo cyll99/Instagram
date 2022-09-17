@@ -137,5 +137,15 @@
         android:layout_margin="5dp"
         android:text="TextView" />
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_below="@+id/description"
+        android:layout_marginTop="5dp"
+
+        android:layout_width="match_parent"
+        android:id="@+id/rvcomments"
+        android:padding="8dp"
+
+        android:layout_height="match_parent" />
+
 
 </RelativeLayout>

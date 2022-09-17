@@ -91,7 +91,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
 
     public  class ViewHolder extends RecyclerView.ViewHolder{
 
-        TextView tvUsername,tvCreatedAt,tvDescription;
+        TextView tvUsername,tvCreatedAt,tvDescription,tvNumLikes;
 
         ImageView ivPhoto, ivProfile;
 
@@ -100,6 +100,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
 
         RelativeLayout container, containerForProfile;
         List<String> likers;
+        int numlikes;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -114,6 +115,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
             icon_save = itemView.findViewById(R.id.save);
             icon_comment = itemView.findViewById(R.id.comment);
             icon_send = itemView.findViewById(R.id.share);
+            tvNumLikes = itemView.findViewById(R.id.numLikes);
 
             container = itemView.findViewById(R.id.container);
             containerForProfile = itemView.findViewById(R.id.container_pro);
@@ -131,6 +133,8 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
             String profile_url = post.getUser().getParseFile(User.KEY_PROFILE).getUrl();
 
             likers = Post.fromJsonArray(post.getLikers()); // list of likers
+            numlikes = likers.size();
+            tvNumLikes.setText(String.valueOf(numlikes));
 
 
             Constants.display_heart(icon_heart,icon_heart_red,likers, currentUser);//display the icon heart
@@ -142,17 +146,30 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
                     goToProfile(Parcels.wrap(post));
                 }
             });
+
+            // user clicks icon to unlike
             icon_heart_red.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                Constants.UserDislikes(icon_heart,icon_heart_red,post,likers, currentUser);
+                Constants.UserDislikes(icon_heart,icon_heart_red,post,likers, currentUser,tvNumLikes);
+                    numlikes--;
+                post.setNumLikes(numlikes);
+                    tvNumLikes.setText(String.valueOf(numlikes));
+
 
                 }
             });
+
+            // user clicks on icon to like
             icon_heart.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                  Constants.UserLikes(icon_heart,icon_heart_red,currentUser,post,TAG,context);
+                  Constants.UserLikes(icon_heart,icon_heart_red,currentUser,post,TAG,context,likers,tvNumLikes);
+                    numlikes++;
+                    post.setNumLikes(numlikes);
+                    tvNumLikes.setText(String.valueOf(numlikes));
+
+
                 }
             });
             icon_comment.setOnClickListener(new View.OnClickListener() {

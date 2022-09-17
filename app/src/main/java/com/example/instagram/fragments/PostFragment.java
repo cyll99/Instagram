@@ -32,8 +32,8 @@ public class PostFragment extends Fragment {
 
 
     public static final String TAG = "PostFragment";
-    protected PostAdapter postAdapter;
-    protected List<Post> allPosts;
+    private PostAdapter postAdapter;
+    private List<Post> allPosts;
 
 
     @Override

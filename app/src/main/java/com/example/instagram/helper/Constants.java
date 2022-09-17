@@ -45,20 +45,31 @@ public class Constants {
     }
 
     //ADD USER IN LIST LIKERS WHEN HE LIKES
-    public static void UserLikes(TextView blank_heart, TextView filled_heart, ParseUser currentUser, Post post,String TAG, Context context){
+    public static void UserLikes(TextView blank_heart, TextView filled_heart, ParseUser currentUser, Post post,String TAG, Context context,List<String> likers,TextView tvNumLikes){
         AddThisLiker(post,currentUser,TAG,context);
         blank_heart.setVisibility(View.INVISIBLE);
         filled_heart.setVisibility(View.VISIBLE);
+
+        int numlikes = likers.size();
+        numlikes++;
+        post.setNumLikes(numlikes);
+        tvNumLikes.setText(String.valueOf(numlikes));
+
 
     }
 
     //REMOVE USER IN LIST LIKERS WHEN HE DISLIKES
 
-    public static void UserDislikes(TextView blank_heart, TextView filled_heart,  Post post,List<String> likers, ParseUser currentUser){
+    public static void UserDislikes(TextView blank_heart, TextView filled_heart,  Post post,List<String> likers, ParseUser currentUser, TextView tvNumLikes){
         likers.remove(currentUser.getObjectId());
         post.removeItemListLikers(likers);
         blank_heart.setVisibility(View.VISIBLE);
         filled_heart.setVisibility(View.INVISIBLE);
+
+        int numlikes = likers.size();
+        numlikes--;
+        post.setNumLikes(numlikes);
+        tvNumLikes.setText(String.valueOf(numlikes));
 
     }
 

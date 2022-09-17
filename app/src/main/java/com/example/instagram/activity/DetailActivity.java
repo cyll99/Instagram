@@ -2,6 +2,7 @@ package com.example.instagram.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityOptionsCompat;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -14,8 +15,11 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.example.instagram.R;
+import com.example.instagram.adapter.CommentAdapter;
+import com.example.instagram.adapter.PostAdapter;
 import com.example.instagram.helper.Constants;
 import com.example.instagram.helper.TimeFormatter;
+import com.example.instagram.models.Comment;
 import com.example.instagram.models.Post;
 import com.example.instagram.models.User;
 import com.parse.ParseUser;
@@ -23,6 +27,7 @@ import com.parse.ParseUser;
 import org.json.JSONException;
 import org.parceler.Parcels;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class DetailActivity extends AppCompatActivity {
@@ -33,9 +38,11 @@ public class DetailActivity extends AppCompatActivity {
     ImageView ivPhoto, ivProfile;
 
 
-    TextView icon_heart,icon_save,icon_comment,icon_send,icon_heart_red;
+    TextView icon_heart,icon_save,icon_comment,icon_send,icon_heart_red,tvNumLikes;
 
     RelativeLayout container;
+    RecyclerView rvComments;
+
 
     ParseUser currentUser = ParseUser.getCurrentUser();
     List<String> likers;
@@ -45,6 +52,12 @@ public class DetailActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
+
+        rvComments = findViewById(R.id.rvcomments);
+        List<Comment> allComments = new ArrayList<>();
+        CommentAdapter commentAdapter = new CommentAdapter(DetailActivity.this, allComments);
+
+        rvComments.setAdapter(commentAdapter);
 
         Post post = Parcels.unwrap(getIntent().getParcelableExtra(Constants.DATA));
 
@@ -66,6 +79,7 @@ public class DetailActivity extends AppCompatActivity {
         icon_save = findViewById(R.id.save);
         icon_comment = findViewById(R.id.comment);
         icon_send = findViewById(R.id.share);
+        tvNumLikes = findViewById(R.id.numLikes);
 
         container = findViewById(R.id.container);
 
@@ -87,14 +101,14 @@ public class DetailActivity extends AppCompatActivity {
         icon_heart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Constants.UserLikes(icon_heart,icon_heart_red,currentUser,post,TAG,DetailActivity.this);
+                Constants.UserLikes(icon_heart,icon_heart_red,currentUser,post,TAG,DetailActivity.this,likers,tvNumLikes);
             }
         });
 
         icon_heart_red.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Constants.UserDislikes(icon_heart,icon_heart_red,post,likers,currentUser);
+                Constants.UserDislikes(icon_heart,icon_heart_red,post,likers,currentUser, tvNumLikes);
             }
         });
 
