@@ -1,24 +1,19 @@
 package com.example.instagram.helper;
 
 import android.content.Context;
-import android.content.Intent;
-import android.net.Uri;
-import android.provider.MediaStore;
+
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.core.content.FileProvider;
-import androidx.fragment.app.Fragment;
+
 
 import com.example.instagram.models.Post;
-import com.example.instagram.models.User;
 import com.parse.ParseException;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
 
-import java.io.File;
 import java.util.List;
 
 public class Constants {
@@ -34,6 +29,7 @@ public class Constants {
     public static void setIconProfileClicked(boolean value){iconProfileClicked = value;}
 
 
+    // methode to display empty or filled heart
     public static void display_heart(TextView blank_heart, TextView filled_heart, List<String> likers, ParseUser currentUser){
         if(likers.contains(currentUser.getObjectId())){
             blank_heart.setVisibility(View.INVISIBLE);
