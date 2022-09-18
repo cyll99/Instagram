@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -48,7 +49,7 @@ import java.util.List;
 
 public class ProfilFragment extends Fragment {
     Button btnSignout;
-    RecyclerView rvPosts;
+    GridView gridView;
     ImageView ivProfile,edit_icon;
     TextView username;
 
@@ -60,13 +61,19 @@ public class ProfilFragment extends Fragment {
     public String photoFileName = "photo.jpg";
 
     ProfileAdapter profileAdapter;
-    List<Post> allPosts;
+    List<ParseFile> allPosts;
     ProgressBar pb;
     String profile_url;
     String UserName;
     ParseUser theUser;
 
-
+    public static ProfilFragment newInstance(String title) {
+        ProfilFragment frag = new ProfilFragment();
+        Bundle args = new Bundle();
+        args.putString("title", title);
+        frag.setArguments(args);
+        return frag;
+    }
 
 
     @Override
@@ -74,15 +81,15 @@ public class ProfilFragment extends Fragment {
 
 
         super.onViewCreated(view, savedInstanceState);
-        rvPosts = view.findViewById(R.id.rvposts);
+        gridView = view.findViewById(R.id.gridView);
         allPosts = new ArrayList<>();
         profileAdapter = new ProfileAdapter(getContext(), allPosts);
 
-        rvPosts.setAdapter(profileAdapter); //set the adapter
+        gridView.setAdapter(profileAdapter); //set the adapter
 
-        StaggeredGridLayoutManager gridLayoutManager = new StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL); // set a grid layout for the pictures
+//        StaggeredGridLayoutManager gridLayoutManager = new StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL); // set a grid layout for the pictures
 
-        rvPosts.setLayoutManager(gridLayoutManager);
+//        rvPosts.setLayoutManager(gridLayoutManager);
         queryPost();
 
         btnSignout = view.findViewById(R.id.btnSignout);
@@ -143,15 +150,19 @@ public class ProfilFragment extends Fragment {
         query.findInBackground(new FindCallback<Post>() {
             @Override
             public void done(List<Post> posts, ParseException e) {
+                List<ParseFile> images = new ArrayList<>();
+
                 if(e != null){
                     Log.e(TAG,"issue findind post", e);
                     return;
                 }
                 for (Post post: posts){
                     Log.i(TAG, "Post: "+ post.getDescription() + " user: " +post.getUser().getUsername());
+                    images.add(post.getImage());
+
 
                 }
-                allPosts.addAll(posts);
+                allPosts.addAll(images);
                 profileAdapter.notifyDataSetChanged();
             }
         });

@@ -16,6 +16,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityOptionsCompat;
 
+import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -219,6 +221,8 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
     }
     // passing data to profile fragment
     private void goToProfile(Parcelable post) {
+        FragmentManager fragmentManager = ((FragmentActivity) context).getSupportFragmentManager();
+
         Constants.setIconProfileClicked(false);
 
         Bundle bundle = new Bundle();
@@ -226,9 +230,10 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
         bundle.putParcelable("post", post);
 
 
-        ProfilFragment profile = new ProfilFragment();
-        profile.setArguments(bundle);
+        ProfilFragment profileFragment = ProfilFragment.newInstance("");
+        profileFragment.setArguments(bundle);
 
+        fragmentManager.beginTransaction().replace(R.id.flContainer, profileFragment).commit();
 
 
     }

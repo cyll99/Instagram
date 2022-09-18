@@ -44,7 +44,7 @@ public class CommentActivity extends AppCompatActivity {
 
         setSupportActionBar(toolbar);
 
-        tvUserName = findViewById(R.id.username);
+        tvUserName = findViewById(R.id.Username);
         profile = findViewById(R.id.profileImage);
         etComment = findViewById(R.id.etComment);
         btnComment = findViewById(R.id.btnComment);
@@ -86,6 +86,8 @@ public class CommentActivity extends AppCompatActivity {
                 }
 
                 etComment.setText("");
+                Toast.makeText(CommentActivity.this, "Comment saved", Toast.LENGTH_SHORT).show();
+
             }
         });
     }

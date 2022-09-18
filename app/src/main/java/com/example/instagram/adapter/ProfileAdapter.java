@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.BaseAdapter;
 import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
@@ -18,94 +19,62 @@ import com.example.instagram.R;
 import com.example.instagram.activity.PictureActivity;
 import com.example.instagram.helper.Constants;
 import com.example.instagram.models.Post;
+import com.parse.Parse;
 import com.parse.ParseFile;
 
 import org.parceler.Parcels;
 
 import java.util.List;
 
-public class ProfileAdapter extends RecyclerView.Adapter<ProfileAdapter.ViewHolder> {
+public class ProfileAdapter extends BaseAdapter {
 
-
+    public static final String  TAG= "ProfileAdapter";
     private final Context context;
-    private final List<Post> posts;
+    private final List<ParseFile> posts;
+    LayoutInflater inflater;
 
-    public ProfileAdapter(Context context, List<Post> posts) {
+
+    public ProfileAdapter(Context context, List<ParseFile> posts) {
         this.context = context;
         this.posts = posts;
     }
 
 
-    @NonNull
-    @Override
-    public ProfileAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.item_profile, parent,false);
-        return new ProfileAdapter.ViewHolder(view);    }
+
+
+
 
     @Override
-    public void onBindViewHolder(@NonNull ProfileAdapter.ViewHolder holder, int position) {
-        Post post = posts.get(position);
-        holder.bind(post);
+    public int getCount() {
+        return 0;
     }
 
     @Override
-    public int getItemCount() {
-        return posts.size();
+    public Object getItem(int i) {
+        return null;
     }
 
-    public  class ViewHolder extends RecyclerView.ViewHolder{
+    @Override
+    public long getItemId(int i) {
+        return 0;
+    }
 
-
-        ImageView ivPhoto;
-
-
-
-
-        public ViewHolder(@NonNull View itemView) {
-            super(itemView);
-
-            ivPhoto = itemView.findViewById(R.id.photo);
-
-
-
-
+    @Override
+    public View getView(int i, View view, ViewGroup viewGroup) {
+        if (inflater == null){
+            inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         }
 
-        public void bind(Post post) {
-
-            String picture_url = post.getImage().getUrl();
-
-           // clicks on the picture to see it
-            ivPhoto.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    // 2 Navigate on new activity on tap
-
-                    Intent i =  new Intent(context, PictureActivity.class);
-                    i.putExtra(Constants.DATA, Parcels.wrap(post));
-
-
-
-
-                    ActivityOptionsCompat options = ActivityOptionsCompat.
-                            makeSceneTransitionAnimation((Activity) context, ivPhoto, Constants.TRANSITION);
-
-                    context.startActivity(i, options.toBundle());
-
-                }
-            });
-
-
-            ParseFile image = post.getImage();
-
-
-            if(image != null){
-                Glide.with(context).load(picture_url)
-                        .transform(new RoundedCorners(Constants.ROUNDED_PICTURE)).into(ivPhoto);
-
-            }
+        if (view == null){
+            view = inflater.inflate(R.layout.item_profile,null);
         }
-    }
+
+        ImageView ivPostImage = view.findViewById(R.id.photo);
+        ParseFile image = posts.get(i);
+        Glide.with(context).load(image.getUrl()).transform(new RoundedCorners(100)).into(ivPostImage);
+
+        return view;    }
+
 
 
 }

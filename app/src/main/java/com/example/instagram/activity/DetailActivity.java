@@ -2,6 +2,7 @@ package com.example.instagram.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityOptionsCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Activity;
@@ -56,7 +57,9 @@ public class DetailActivity extends AppCompatActivity {
         List<Comment> allComments = new ArrayList<>();
         CommentAdapter commentAdapter = new CommentAdapter(DetailActivity.this, allComments);
 
-        rvComments.setAdapter(commentAdapter);
+        rvComments.setAdapter(commentAdapter); //set the adapter
+
+        rvComments.setLayoutManager(new LinearLayoutManager(DetailActivity.this)); // set the layout for the adapter
 
         Post post = Parcels.unwrap(getIntent().getParcelableExtra(Constants.DATA));
 

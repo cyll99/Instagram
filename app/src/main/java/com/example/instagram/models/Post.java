@@ -67,9 +67,6 @@ public class Post extends ParseObject {
 
 
 
-    public JSONArray getComments(){
-        return getJSONArray(KEY_COMMMENT);
-    }
     public void setListComment(ParseObject comment){add(KEY_COMMMENT, comment);}
 
     public static List<String> fromJsonArray(JSONArray jsonArray) throws JSONException {
