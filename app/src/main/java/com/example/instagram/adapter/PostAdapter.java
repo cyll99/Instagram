@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Parcelable;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -43,6 +44,8 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
     private static final String TAG = "PostAdapter";
     private final Context context;
     private final List<Post> posts;
+    private static List<String> likers;
+
 
 
 
@@ -96,7 +99,6 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
         TextView icon_heart,icon_heart_red, icon_save,icon_comment,icon_send;
 
         RelativeLayout container, containerForProfile;
-        List<String> likers;
         int numlikes;
 
         public ViewHolder(@NonNull View itemView) {
@@ -129,7 +131,12 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
             String picture_url = post.getImage().getUrl();
             String profile_url = post.getUser().getParseFile(User.KEY_PROFILE).getUrl();
 
-            likers = Post.fromJsonArray(post.getLikers()); // list of likers
+            try {
+                likers = Post.fromJsonArray(post.getLikers()); // list of likers
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            Log.i(TAG, String.valueOf(likers));
             numlikes = likers.size();
             tvNumLikes.setText(String.valueOf(numlikes));
 
@@ -166,6 +173,9 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
                     numlikes++;
                     post.setNumLikes(numlikes);
                     tvNumLikes.setText(String.valueOf(numlikes));
+                    Log.i(TAG, String.valueOf(likers));
+
+
 
 
                 }

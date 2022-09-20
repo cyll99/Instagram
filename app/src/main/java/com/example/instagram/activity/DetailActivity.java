@@ -46,6 +46,7 @@ public class DetailActivity extends AppCompatActivity {
 
     ParseUser currentUser = ParseUser.getCurrentUser();
     List<String> likers;
+    int numlikes;
 
 
     @Override
@@ -81,7 +82,7 @@ public class DetailActivity extends AppCompatActivity {
         icon_save = findViewById(R.id.save);
         icon_comment = findViewById(R.id.comment);
         icon_send = findViewById(R.id.share);
-        tvNumLikes = findViewById(R.id.numLikes);
+        tvNumLikes = findViewById(R.id.numlikes);
 
         container = findViewById(R.id.container);
 
@@ -99,6 +100,8 @@ public class DetailActivity extends AppCompatActivity {
         tvDescription.setText(description);
         tvUsername.setText(username);
         tvCreatedAt.setText(timestamp);
+        numlikes = likers.size();
+        tvNumLikes.setText(String.valueOf(numlikes));
 
         // when user likes
         icon_heart.setOnClickListener(new View.OnClickListener() {

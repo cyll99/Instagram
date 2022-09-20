@@ -45,6 +45,7 @@ public class Constants {
         AddThisLiker(post,currentUser,TAG,context);
         blank_heart.setVisibility(View.INVISIBLE);
         filled_heart.setVisibility(View.VISIBLE);
+        likers.add(currentUser.getObjectId());
 
         int numlikes = likers.size();
         numlikes++;
@@ -61,6 +62,8 @@ public class Constants {
         post.removeItemListLikers(likers);
         blank_heart.setVisibility(View.VISIBLE);
         filled_heart.setVisibility(View.INVISIBLE);
+
+        likers.remove(currentUser.getObjectId());
 
         int numlikes = likers.size();
         numlikes--;

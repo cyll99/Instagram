@@ -67,10 +67,9 @@
         android:layout_marginStart="5dp"
         android:layout_marginTop="5dp"
 
-        android:drawablePadding="5dp"
+        app:drawableLeftCompat="@drawable/heart_outline"
 
-        tools:text="5" />
-<!--    app:drawableLeftCompat="@drawable/heart_outline"-->
+         />
 
     <TextView
         android:id="@+id/heart_red"
@@ -81,10 +80,9 @@
         android:layout_marginStart="5dp"
         android:layout_marginTop="5dp"
 
-        android:drawablePadding="5dp"
+        app:drawableLeftCompat="@drawable/ic_heart"
 
-        tools:text="5" />
-<!--    app:drawableLeftCompat="@drawable/ic_heart"-->
+        />
 
 
     <TextView
@@ -128,7 +126,7 @@
         />
 
     <TextView
-        android:id="@+id/description"
+        android:id="@+id/numlikes"
         android:layout_below="@+id/heart"
 
         android:layout_width="match_parent"
@@ -137,15 +135,25 @@
         android:layout_margin="5dp"
         android:text="TextView" />
 
+    <TextView
+        android:id="@+id/description"
+        android:layout_below="@+id/numlikes"
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_margin="5dp"
+        android:text="TextView" />
+
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvcomments"
+        android:layout_width="match_parent"
+
+        android:layout_height="match_parent"
         android:layout_below="@+id/description"
         android:layout_marginTop="5dp"
 
-        android:layout_width="match_parent"
-        android:id="@+id/rvcomments"
-        android:padding="8dp"
-
-        android:layout_height="match_parent" />
+        android:padding="8dp" />
 
 
 </RelativeLayout>

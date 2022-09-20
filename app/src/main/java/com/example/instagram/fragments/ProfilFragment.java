@@ -122,6 +122,9 @@ public class ProfilFragment extends Fragment {
 
             }
         });
+        profile_url = ParseUser.getCurrentUser().getParseFile(User.KEY_PROFILE).getUrl();
+        UserName = ParseUser.getCurrentUser().getUsername();
+        theUser = Constants.CURRENT_USER;
 
         // condition to display the user profile
         if (Constants.iconProfileClicked){ // current user profile displayed

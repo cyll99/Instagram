@@ -69,8 +69,8 @@ public class Post extends ParseObject {
 
     public void setListComment(ParseObject comment){add(KEY_COMMMENT, comment);}
 
-    public static List<String> fromJsonArray(JSONArray jsonArray) throws JSONException {
-        List<String> likers = new ArrayList<String>();
+    public static ArrayList<String> fromJsonArray(JSONArray jsonArray) throws JSONException {
+        ArrayList<String> likers = new ArrayList<String>();
 
         try {
             for (int i = 0; i < jsonArray.length(); i++){
