@@ -25,7 +25,7 @@ public class Post extends ParseObject {
     public static final String CREATED_AT="createdAt";
     public static final String KEY_LIKERS="likers";
     public static final String KEY_NUM_LKES="numLikes";
-    public static final String KEY_COMMMENT="comments";
+    public static final String KEY_COMMENT="comments";
 
 
 
@@ -49,8 +49,9 @@ public class Post extends ParseObject {
     public ParseUser getUser(){
         return getParseUser(KEY_USER);
     }
+
     public JSONArray getLikers(){
-        return getJSONArray(KEY_USER);
+        return getJSONArray(KEY_LIKERS);
     }
     public void setUser(ParseUser parseUser){
         put(KEY_USER, parseUser);
@@ -64,10 +65,15 @@ public class Post extends ParseObject {
     public void setNumLikes(int num){
         put(KEY_NUM_LKES, num);
     }
+    public  int getNumLikes(){
+        return getInt(KEY_NUM_LKES);
+    }
+    public JSONArray getListComment(){
+        return getJSONArray(KEY_COMMENT);
+    }
 
 
-
-    public void setListComment(ParseObject comment){add(KEY_COMMMENT, comment);}
+    public void setListComment(ParseObject comment){add(KEY_COMMENT, comment);}
 
     public static ArrayList<String> fromJsonArray(JSONArray jsonArray) throws JSONException {
         ArrayList<String> likers = new ArrayList<String>();

@@ -125,19 +125,20 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
 
             ParseUser currentUser = ParseUser.getCurrentUser();
 
-            String timeDifference = TimeFormatter.getTimeDifference(post.getCreatedAt().toString());
-            String username = post.getUser().getUsername();
-            String description = post.getDescription();
-            String picture_url = post.getImage().getUrl();
-            String profile_url = post.getUser().getParseFile(User.KEY_PROFILE).getUrl();
-
             try {
                 likers = Post.fromJsonArray(post.getLikers()); // list of likers
             } catch (JSONException e) {
                 e.printStackTrace();
             }
             Log.i(TAG, String.valueOf(likers));
-            numlikes = likers.size();
+
+            String timeDifference = TimeFormatter.getTimeDifference(post.getCreatedAt().toString());
+            String username = post.getUser().getUsername();
+            String description = post.getDescription();
+            String picture_url = post.getImage().getUrl();
+            String profile_url = post.getUser().getParseFile(User.KEY_PROFILE).getUrl();
+
+            numlikes = post.getNumLikes();
             tvNumLikes.setText(String.valueOf(numlikes));
 
 

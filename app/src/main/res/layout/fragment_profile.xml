@@ -43,6 +43,7 @@
             android:indeterminate="true"
             android:indeterminateDrawable="@drawable/progress_bg"
             android:visibility="invisible" />
+
         <Button
             android:id="@+id/btnSignout"
             android:layout_width="100dp"
@@ -79,8 +80,8 @@
             android:layout_height="match_parent"
             android:layout_below="@+id/divider"
             android:layout_marginTop="15dp"
-            android:numColumns ="2"
-            android:stretchMode ="columnWidth" />
+            android:numColumns="2"
+            android:stretchMode="columnWidth" />
 
 
 

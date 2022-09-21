@@ -16,6 +16,7 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.example.instagram.R;
 import com.example.instagram.helper.Constants;
 import com.example.instagram.models.Comment;
+import com.example.instagram.models.User;
 
 
 import java.util.List;
@@ -55,28 +56,18 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
         ImageView ivPhoto;
         TextView tvUsername, tvComment;
 
-
-
-
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            ivPhoto = itemView.findViewById(R.id.photo);
+            ivPhoto = itemView.findViewById(R.id.ivProfileImage);
             tvUsername = itemView.findViewById(R.id.username);
             tvComment = itemView.findViewById(R.id.comment);
-
-
-
-
         }
 
         public void bind(Comment comment) {
-
-            String picture_url = comment.getUser().getParseFile(Comment.KEY_USER).getUrl();
+            String picture_url = comment.getUser().getParseFile(User.KEY_PROFILE).getUrl();
             String username = comment.getUser().getUsername();
             String commentaire = comment.getComment();
-
-
 
             tvUsername.setText(username);
             tvComment.setText(commentaire);

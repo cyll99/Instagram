@@ -46,7 +46,7 @@ public class ProfileAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        return 0;
+        return posts.size();
     }
 
     @Override

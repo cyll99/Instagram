@@ -6,12 +6,15 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
@@ -22,6 +25,9 @@ import com.example.instagram.helper.TimeFormatter;
 import com.example.instagram.models.Comment;
 import com.example.instagram.models.Post;
 import com.example.instagram.models.User;
+import com.parse.FindCallback;
+import com.parse.ParseException;
+import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
 import org.json.JSONException;
@@ -37,7 +43,6 @@ public class DetailActivity extends AppCompatActivity {
 
     ImageView ivPhoto, ivProfile;
 
-
     TextView icon_heart,icon_save,icon_comment,icon_send,icon_heart_red,tvNumLikes;
 
     RelativeLayout container;
@@ -47,6 +52,11 @@ public class DetailActivity extends AppCompatActivity {
     ParseUser currentUser = ParseUser.getCurrentUser();
     List<String> likers;
     int numlikes;
+    List<Comment> allComments;
+    protected List<String> comments;
+    CommentAdapter commentAdapter;
+    Context context;
+
 
 
     @Override
@@ -54,13 +64,20 @@ public class DetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
 
+        tvUsername = findViewById(R.id.username);
+        tvCreatedAt = findViewById(R.id.createdAt);
+        tvDescription = findViewById(R.id.description);
+        ivPhoto = findViewById(R.id.photo);
+        ivProfile = findViewById(R.id.profile);
+        icon_heart = findViewById(R.id.heart);
+        icon_heart_red = findViewById(R.id.heart_red);
+        icon_save = findViewById(R.id.save);
+        icon_comment = findViewById(R.id.comment);
+        icon_send = findViewById(R.id.share);
+        tvNumLikes = findViewById(R.id.numlikes);
+        container = findViewById(R.id.container);
         rvComments = findViewById(R.id.rvcomments);
-        List<Comment> allComments = new ArrayList<>();
-        CommentAdapter commentAdapter = new CommentAdapter(DetailActivity.this, allComments);
 
-        rvComments.setAdapter(commentAdapter); //set the adapter
-
-        rvComments.setLayoutManager(new LinearLayoutManager(DetailActivity.this)); // set the layout for the adapter
 
         Post post = Parcels.unwrap(getIntent().getParcelableExtra(Constants.DATA));
 
@@ -70,21 +87,19 @@ public class DetailActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
+        // list of comments
+        try {
+            comments= Comment.fromJsonArray(post.getListComment());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
 
-        tvUsername = findViewById(R.id.username);
-        tvCreatedAt = findViewById(R.id.createdAt);
-        tvDescription = findViewById(R.id.description);
-        ivPhoto = findViewById(R.id.photo);
-        ivProfile = findViewById(R.id.profile);
+        allComments = new ArrayList<>();
 
-        icon_heart = findViewById(R.id.heart);
-        icon_heart_red = findViewById(R.id.heart_red);
-        icon_save = findViewById(R.id.save);
-        icon_comment = findViewById(R.id.comment);
-        icon_send = findViewById(R.id.share);
-        tvNumLikes = findViewById(R.id.numlikes);
+        commentAdapter = new CommentAdapter(DetailActivity.this, allComments);
+        rvComments.setAdapter(commentAdapter); //set the adapter to the recycle view
 
-        container = findViewById(R.id.container);
+        rvComments.setLayoutManager(new LinearLayoutManager(context)); // set the layout for the adapter
 
         String username = post.getUser().getUsername();
         String description = post.getDescription();
@@ -94,8 +109,6 @@ public class DetailActivity extends AppCompatActivity {
 
 
         Constants.display_heart(icon_heart,icon_heart_red,likers, currentUser); // display a filled or empty heart (methode in constants)
-
-
 
         tvDescription.setText(description);
         tvUsername.setText(username);
@@ -129,8 +142,6 @@ public class DetailActivity extends AppCompatActivity {
                 i.putExtra(Constants.DATA, Parcels.wrap(post));
 
 
-
-
                 ActivityOptionsCompat options = ActivityOptionsCompat.
                         makeSceneTransitionAnimation((Activity) DetailActivity.this, ivPhoto, Constants.TRANSITION);
 
@@ -145,6 +156,28 @@ public class DetailActivity extends AppCompatActivity {
         Glide.with(DetailActivity.this).load(picture_url)
                 .transform(new RoundedCorners(Constants.ROUNDED_PICTURE)).into(ivPhoto); // display picture posted
 
+        queryComments(); //query all comments about the post
 
+    }
+
+    // Methode for displaying comments
+    protected void queryComments() {
+        ParseQuery<Comment> query = ParseQuery.getQuery(Comment.class);
+        query.include(Comment.KEY_USER);
+        query.whereContainedIn("objectId", comments);
+        query.findInBackground(new FindCallback<Comment>() {
+            @Override
+            public void done(List<Comment> commentList, ParseException e) {
+                if (e != null){
+                    Log.e(TAG, "Issue with getting Posts", e);
+                    Toast.makeText(DetailActivity.this, "Issue with getting Posts", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                allComments.addAll(commentList);
+                commentAdapter.notifyDataSetChanged();
+
+            }
+        });
     }
 }

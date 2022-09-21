@@ -78,31 +78,43 @@ public class ProfilFragment extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-
-
         super.onViewCreated(view, savedInstanceState);
-        gridView = view.findViewById(R.id.gridView);
-        allPosts = new ArrayList<>();
-        profileAdapter = new ProfileAdapter(getContext(), allPosts);
-
-        gridView.setAdapter(profileAdapter); //set the adapter
-
-//        StaggeredGridLayoutManager gridLayoutManager = new StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL); // set a grid layout for the pictures
-
-//        rvPosts.setLayoutManager(gridLayoutManager);
-        queryPost();
 
         btnSignout = view.findViewById(R.id.btnSignout);
         ivProfile = view.findViewById(R.id.profile);
         edit_icon = view.findViewById(R.id.edit);
         username = view.findViewById(R.id.username);
-
         pb = view.findViewById(R.id.pbLoading);
+        gridView = view.findViewById(R.id.gridView);
+
+
+        // condition to display the user profile
+        if (Constants.iconProfileClicked){ // current user profile displayed
+            profile_url = ParseUser.getCurrentUser().getParseFile(User.KEY_PROFILE).getUrl();
+            UserName = ParseUser.getCurrentUser().getUsername();
+            theUser = Constants.CURRENT_USER;
+        }else{//profile of the user chosen displayed
+            Bundle bundle = getArguments();
+            Post post = Parcels.unwrap(bundle.getParcelable("post"));
+
+            profile_url = post.getUser().getParseFile(User.KEY_PROFILE).getUrl();
+            UserName = post.getUser().getUsername();
+            theUser = post.getUser();
+            btnSignout.setVisibility(View.INVISIBLE);
+            edit_icon.setVisibility(View.INVISIBLE);
+        }
+
 
         Glide.with(getContext()).load(profile_url)
                 .transform(new RoundedCorners(Constants.ROUNDED_PROFILE)).into(ivProfile); // display the profile picture
-
         username.setText(UserName);
+
+        allPosts = new ArrayList<>();
+
+        profileAdapter = new ProfileAdapter(getContext(), allPosts);
+        gridView.setAdapter(profileAdapter); //set the adapter
+
+        queryPost();
 
         // user clicks to edit his profile
         edit_icon.setOnClickListener(new View.OnClickListener() {
@@ -122,25 +134,7 @@ public class ProfilFragment extends Fragment {
 
             }
         });
-        profile_url = ParseUser.getCurrentUser().getParseFile(User.KEY_PROFILE).getUrl();
-        UserName = ParseUser.getCurrentUser().getUsername();
-        theUser = Constants.CURRENT_USER;
 
-        // condition to display the user profile
-        if (Constants.iconProfileClicked){ // current user profile displayed
-            profile_url = ParseUser.getCurrentUser().getParseFile(User.KEY_PROFILE).getUrl();
-            UserName = ParseUser.getCurrentUser().getUsername();
-            theUser = Constants.CURRENT_USER;
-        }else{//profile of the user chosen displayed
-            Bundle bundle = getArguments();
-            Post post = Parcels.unwrap(bundle.getParcelable("post"));
-
-            profile_url = post.getUser().getParseFile(User.KEY_PROFILE).getUrl();
-            UserName = post.getUser().getUsername();
-            theUser = post.getUser();
-            btnSignout.setVisibility(View.INVISIBLE);
-            edit_icon.setVisibility(View.INVISIBLE);
-        }
     }
 
     // methode for fetching posts
