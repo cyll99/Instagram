@@ -11,10 +11,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+import androidx.appcompat.widget.Toolbar;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
@@ -63,6 +65,10 @@ public class DetailActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
+
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        ImageButton btnReturn = findViewById(R.id.iconBack);
+        setSupportActionBar(toolbar);
 
         tvUsername = findViewById(R.id.username);
         tvCreatedAt = findViewById(R.id.createdAt);
@@ -123,7 +129,15 @@ public class DetailActivity extends AppCompatActivity {
                 Constants.UserLikes(icon_heart,icon_heart_red,currentUser,post,TAG,DetailActivity.this,likers,tvNumLikes);
             }
         });
-
+        // user clicks to return to the main page
+        btnReturn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(DetailActivity.this, MainActivity.class);
+                i.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                startActivityIfNeeded(i, 0);
+            }
+        });
         // when user unlikes
         icon_heart_red.setOnClickListener(new View.OnClickListener() {
             @Override

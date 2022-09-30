@@ -66,7 +66,10 @@ public class Constants {
         likers.remove(currentUser.getObjectId());
 
         int numlikes = likers.size();
-        numlikes--;
+        if (numlikes > 0)
+            numlikes--;
+
+
         post.setNumLikes(numlikes);
         tvNumLikes.setText(String.valueOf(numlikes));
 
