@@ -142,7 +142,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
             tvNumLikes.setText(String.valueOf(numlikes));
 
 
-            Constants.display_heart(icon_heart,icon_heart_red,likers, currentUser);//display the icon heart
+            Constants.display_heart(icon_heart,icon_heart_red,likers);//display the icon heart
 
 
             // user clicks to this container to go to the profile of the user he clicks

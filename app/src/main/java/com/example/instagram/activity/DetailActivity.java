@@ -114,7 +114,7 @@ public class DetailActivity extends AppCompatActivity {
         String timestamp =TimeFormatter.getTimeStamp(post.getCreatedAt().toString());
 
 
-        Constants.display_heart(icon_heart,icon_heart_red,likers, currentUser); // display a filled or empty heart (methode in constants)
+        Constants.display_heart(icon_heart,icon_heart_red,likers); // display a filled or empty heart (methode in constants)
 
         tvDescription.setText(description);
         tvUsername.setText(username);

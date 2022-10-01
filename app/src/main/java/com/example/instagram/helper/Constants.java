@@ -30,7 +30,8 @@ public class Constants {
 
 
     // methode to display empty or filled heart
-    public static void display_heart(TextView blank_heart, TextView filled_heart, List<String> likers, ParseUser currentUser){
+    public static void display_heart(TextView blank_heart, TextView filled_heart, List<String> likers){
+        ParseUser currentUser = ParseUser.getCurrentUser();
         if(likers.contains(currentUser.getObjectId())){
             blank_heart.setVisibility(View.INVISIBLE);
             filled_heart.setVisibility(View.VISIBLE);
@@ -47,10 +48,9 @@ public class Constants {
         filled_heart.setVisibility(View.VISIBLE);
         likers.add(currentUser.getObjectId());
 
-        int numlikes = likers.size();
-        numlikes++;
-        post.setNumLikes(numlikes);
-        tvNumLikes.setText(String.valueOf(numlikes));
+        int numlikes = post.getNumLikes();
+        post.setNumLikes(numlikes++);
+        tvNumLikes.setText(String.valueOf(numlikes++));
 
 
     }
