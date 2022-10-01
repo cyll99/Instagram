@@ -71,7 +71,7 @@ public class ProfileAdapter extends BaseAdapter {
 
         ImageView ivPostImage = view.findViewById(R.id.photo);
         ParseFile image = posts.get(i);
-        Glide.with(context).load(image.getUrl()).transform(new RoundedCorners(100)).into(ivPostImage);
+        Glide.with(context).load(image.getUrl()).transform(new RoundedCorners(30)).into(ivPostImage);
 
         return view;    }
 
