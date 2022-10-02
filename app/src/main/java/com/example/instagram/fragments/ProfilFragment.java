@@ -90,9 +90,10 @@ public class ProfilFragment extends Fragment {
 
         // condition to display the user profile
         if (Constants.iconProfileClicked){ // current user profile displayed
+            theUser = ParseUser.getCurrentUser();
+
             profile_url = ParseUser.getCurrentUser().getParseFile(User.KEY_PROFILE).getUrl();
-            UserName = ParseUser.getCurrentUser().getUsername();
-            theUser = Constants.CURRENT_USER;
+            UserName = theUser.getUsername();
         }else{//profile of the user chosen displayed
             Bundle bundle = getArguments();
             Post post = Parcels.unwrap(bundle.getParcelable("post"));

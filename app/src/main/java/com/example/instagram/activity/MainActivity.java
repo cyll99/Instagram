@@ -54,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
                         fragment = new ComposeFragment();
                         break;
                     default:
-                        //TODO: Update fragment
+
 
                         fragment = new ComposeFragment();
 

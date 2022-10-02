@@ -130,6 +130,8 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
         public void bind(Post post) throws JSONException {
 
             ParseUser currentUser = ParseUser.getCurrentUser();
+            numlikes = post.getNumLikes();
+
 
             try {
                 likers = Post.fromJsonArray(post.getLikers()); // list of likers

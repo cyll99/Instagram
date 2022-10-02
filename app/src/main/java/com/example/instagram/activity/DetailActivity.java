@@ -117,12 +117,11 @@ public class DetailActivity extends AppCompatActivity {
         String timestamp =TimeFormatter.getTimeStamp(post.getCreatedAt().toString());
 
 
-       // Constants.display_heart(icon_heart,icon_heart_red,likers); // display a filled or empty heart (methode in constants)
 
         tvDescription.setText(description);
         tvUsername.setText(username);
         tvCreatedAt.setText(timestamp);
-        numlikes = likers.size();
+        numlikes = post.getNumLikes();
         tvNumLikes.setText(String.valueOf(numlikes) + " likes");
 
 
@@ -146,13 +145,13 @@ public class DetailActivity extends AppCompatActivity {
                 int index;
 
                 if (!likers.contains(currentUser.getObjectId())){
-                    Drawable drawable = ContextCompat.getDrawable(context, R.drawable.ic_heart);
+                    Drawable drawable = ContextCompat.getDrawable(DetailActivity.this, R.drawable.ic_heart);
                     icon_heart.setImageDrawable(drawable);
                     numlikes++;
                     index = -1;
 
                 }else {
-                    Drawable drawable = ContextCompat.getDrawable(context, R.drawable.heart_outline);
+                    Drawable drawable = ContextCompat.getDrawable(DetailActivity.this, R.drawable.heart_outline);
                     icon_heart.setImageDrawable(drawable);
                     numlikes--;
                     index = likers.indexOf(currentUser.getObjectId());
