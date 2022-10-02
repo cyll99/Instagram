@@ -123,7 +123,7 @@ public class DetailActivity extends AppCompatActivity {
         tvUsername.setText(username);
         tvCreatedAt.setText(timestamp);
         numlikes = likers.size();
-        tvNumLikes.setText(String.valueOf(numlikes));
+        tvNumLikes.setText(String.valueOf(numlikes) + " likes");
 
 
         // set color for heart

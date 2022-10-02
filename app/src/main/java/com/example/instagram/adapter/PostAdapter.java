@@ -144,6 +144,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
             String picture_url = post.getImage().getUrl();
             String profile_url = post.getUser().getParseFile(User.KEY_PROFILE).getUrl();
 
+            tvNumLikes.setText(String.valueOf(numlikes) + " likes");
 
 
 
