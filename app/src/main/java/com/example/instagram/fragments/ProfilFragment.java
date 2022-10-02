@@ -92,7 +92,7 @@ public class ProfilFragment extends Fragment {
         if (Constants.iconProfileClicked){ // current user profile displayed
             theUser = ParseUser.getCurrentUser();
 
-            profile_url = ParseUser.getCurrentUser().getParseFile(User.KEY_PROFILE).getUrl();
+            profile_url = theUser.getParseFile(User.KEY_PROFILE).getUrl();
             UserName = theUser.getUsername();
         }else{//profile of the user chosen displayed
             Bundle bundle = getArguments();
@@ -238,7 +238,7 @@ public class ProfilFragment extends Fragment {
     public void updateProfile(){
         pb.setVisibility(ProgressBar.VISIBLE);
 
-        User currentUser = (User) Constants.CURRENT_USER;
+        User currentUser = (User) ParseUser.getCurrentUser();
         // Set custom properties
         currentUser.setProfile(new ParseFile(photoFile));
 
