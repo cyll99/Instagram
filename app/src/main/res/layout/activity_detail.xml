@@ -58,31 +58,22 @@
         android:layout_alignParentStart="true"
         android:layout_marginTop="5dp"
         tools:srcCompat="@tools:sample/avatars" />
-    <TextView
+
+    <ImageButton
         android:id="@+id/heart"
         android:layout_width="wrap_content"
+        android:backgroundTint="@color/white"
 
         android:layout_height="wrap_content"
         android:layout_below="@+id/photo"
         android:layout_marginStart="5dp"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="-1dp"
+        android:src="@drawable/heart_outline"
 
-        app:drawableLeftCompat="@drawable/heart_outline"
+        android:drawablePadding="5dp"
 
          />
 
-    <TextView
-        android:id="@+id/heart_red"
-        android:layout_width="wrap_content"
-
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/photo"
-        android:layout_marginStart="5dp"
-        android:layout_marginTop="5dp"
-
-        app:drawableLeftCompat="@drawable/ic_heart"
-
-        />
 
 
     <TextView

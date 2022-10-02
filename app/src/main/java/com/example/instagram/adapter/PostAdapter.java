@@ -3,6 +3,7 @@ package com.example.instagram.adapter;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Parcelable;
 
@@ -10,13 +11,16 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityOptionsCompat;
 
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -31,8 +35,10 @@ import com.example.instagram.helper.Constants;
 import com.example.instagram.helper.TimeFormatter;
 import com.example.instagram.models.Post;
 import com.example.instagram.models.User;
+import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.ParseUser;
+import com.parse.SaveCallback;
 
 import org.json.JSONException;
 import org.parceler.Parcels;
@@ -96,7 +102,8 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
         ImageView ivPhoto, ivProfile;
 
 
-        TextView icon_heart,icon_heart_red, icon_save,icon_comment,icon_send;
+        TextView  icon_save,icon_comment,icon_send;
+        ImageButton icon_heart;
 
         RelativeLayout container, containerForProfile;
         int numlikes;
@@ -110,7 +117,6 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
             ivProfile = itemView.findViewById(R.id.profile);
 
             icon_heart = itemView.findViewById(R.id.heart);
-            icon_heart_red = itemView.findViewById(R.id.heart_red);
             icon_save = itemView.findViewById(R.id.save);
             icon_comment = itemView.findViewById(R.id.comment);
             icon_send = itemView.findViewById(R.id.share);
@@ -138,11 +144,9 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
             String picture_url = post.getImage().getUrl();
             String profile_url = post.getUser().getParseFile(User.KEY_PROFILE).getUrl();
 
-            numlikes = post.getNumLikes();
-            tvNumLikes.setText(String.valueOf(numlikes));
 
 
-            Constants.display_heart(icon_heart,icon_heart_red,likers);//display the icon heart
+
 
 
             // user clicks to this container to go to the profile of the user he clicks
@@ -153,35 +157,29 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
                 }
             });
 
-            // user clicks icon to unlike
-            icon_heart_red.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                Constants.UserDislikes(icon_heart,icon_heart_red,post,likers, currentUser,tvNumLikes);
-                    numlikes--;
-                post.setNumLikes(numlikes);
-                    tvNumLikes.setText(String.valueOf(numlikes));
-
-
-                }
-            });
-
-            // user clicks on icon to like
             icon_heart.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                  Constants.UserLikes(icon_heart,icon_heart_red,currentUser,post,TAG,context,likers,tvNumLikes);
-                    numlikes++;
-                    post.setNumLikes(numlikes);
-                    tvNumLikes.setText(String.valueOf(numlikes));
-                    Log.i(TAG, String.valueOf(likers));
+                    numlikes = post.getNumLikes();
+                    int index;
 
+                    if (!likers.contains(currentUser.getObjectId())){
+                        Drawable drawable = ContextCompat.getDrawable(context, R.drawable.ic_heart);
+                        icon_heart.setImageDrawable(drawable);
+                        numlikes++;
+                        index = -1;
 
+                    }else {
+                        Drawable drawable = ContextCompat.getDrawable(context, R.drawable.heart_outline);
+                        icon_heart.setImageDrawable(drawable);
+                        numlikes--;
+                        index = likers.indexOf(currentUser.getObjectId());
+                    }
 
-
+                    tvNumLikes.setText(String.valueOf(numlikes) + " likes");
+                    saveLike(post, numlikes, index, currentUser);
                 }
             });
-
             // user clicks to comment a post
             icon_comment.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -247,6 +245,31 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
         fragmentManager.beginTransaction().replace(R.id.flContainer, profileFragment).commit();
 
 
+    }
+    // method to save a like
+    private void saveLike(Post post, int like, int index, ParseUser currentUser) {
+        post.setNumLikes(like);
+
+        if (index == -1){
+            post.setListLikers(currentUser);
+            likers.add(currentUser.getObjectId());
+        }else {
+            likers.remove(index);
+            post.removeItemListLikers(likers);
+        }
+
+        post.saveInBackground(new SaveCallback() {
+            @Override
+            public void done(ParseException e) {
+                if (e != null){
+                    Log.e(TAG, "Error while saving", e);
+                    Toast.makeText(context, "Error while saving", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                Log.i(TAG, likers.toString());
+
+            }
+        });
     }
 
 }

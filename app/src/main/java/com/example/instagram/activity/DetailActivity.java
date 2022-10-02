@@ -45,7 +45,8 @@ public class DetailActivity extends AppCompatActivity {
 
     ImageView ivPhoto, ivProfile;
 
-    TextView icon_heart,icon_save,icon_comment,icon_send,icon_heart_red,tvNumLikes;
+    TextView icon_save,icon_comment,icon_send,tvNumLikes;
+    ImageButton icon_heart;
 
     RelativeLayout container;
     RecyclerView rvComments;
@@ -76,7 +77,6 @@ public class DetailActivity extends AppCompatActivity {
         ivPhoto = findViewById(R.id.photo);
         ivProfile = findViewById(R.id.profile);
         icon_heart = findViewById(R.id.heart);
-        icon_heart_red = findViewById(R.id.heart_red);
         icon_save = findViewById(R.id.save);
         icon_comment = findViewById(R.id.comment);
         icon_send = findViewById(R.id.share);
@@ -114,7 +114,7 @@ public class DetailActivity extends AppCompatActivity {
         String timestamp =TimeFormatter.getTimeStamp(post.getCreatedAt().toString());
 
 
-        Constants.display_heart(icon_heart,icon_heart_red,likers); // display a filled or empty heart (methode in constants)
+       // Constants.display_heart(icon_heart,icon_heart_red,likers); // display a filled or empty heart (methode in constants)
 
         tvDescription.setText(description);
         tvUsername.setText(username);
@@ -126,7 +126,7 @@ public class DetailActivity extends AppCompatActivity {
         icon_heart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Constants.UserLikes(icon_heart,icon_heart_red,currentUser,post,TAG,DetailActivity.this,likers,tvNumLikes);
+               // Constants.UserLikes(icon_heart,icon_heart_red,currentUser,post,TAG,DetailActivity.this,likers,tvNumLikes);
             }
         });
         // user clicks to return to the main page
@@ -136,13 +136,6 @@ public class DetailActivity extends AppCompatActivity {
                 Intent i = new Intent(DetailActivity.this, MainActivity.class);
                 i.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                 startActivityIfNeeded(i, 0);
-            }
-        });
-        // when user unlikes
-        icon_heart_red.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Constants.UserDislikes(icon_heart,icon_heart_red,post,likers,currentUser, tvNumLikes);
             }
         });
 
