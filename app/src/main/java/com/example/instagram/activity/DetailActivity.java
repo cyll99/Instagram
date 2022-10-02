@@ -2,12 +2,14 @@ package com.example.instagram.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityOptionsCompat;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -31,6 +33,7 @@ import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
+import com.parse.SaveCallback;
 
 import org.json.JSONException;
 import org.parceler.Parcels;
@@ -122,13 +125,44 @@ public class DetailActivity extends AppCompatActivity {
         numlikes = likers.size();
         tvNumLikes.setText(String.valueOf(numlikes));
 
-        // when user likes
+
+        // set color for heart
+        try{
+            if (likers.contains(currentUser.getObjectId())) {
+                Drawable drawable = ContextCompat.getDrawable(context, R.drawable.ic_heart);
+                icon_heart.setImageDrawable(drawable);
+            }else {
+                Drawable drawable = ContextCompat.getDrawable(context, R.drawable.heart_outline);
+                icon_heart.setImageDrawable(drawable);
+            }
+        }catch (NullPointerException e){
+            e.printStackTrace();
+        }
+
         icon_heart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-               // Constants.UserLikes(icon_heart,icon_heart_red,currentUser,post,TAG,DetailActivity.this,likers,tvNumLikes);
+                numlikes = post.getNumLikes();
+                int index;
+
+                if (!likers.contains(currentUser.getObjectId())){
+                    Drawable drawable = ContextCompat.getDrawable(context, R.drawable.ic_heart);
+                    icon_heart.setImageDrawable(drawable);
+                    numlikes++;
+                    index = -1;
+
+                }else {
+                    Drawable drawable = ContextCompat.getDrawable(context, R.drawable.heart_outline);
+                    icon_heart.setImageDrawable(drawable);
+                    numlikes--;
+                    index = likers.indexOf(currentUser.getObjectId());
+                }
+
+                tvNumLikes.setText(String.valueOf(numlikes) + " likes");
+                saveLike(post, numlikes, index, currentUser);
             }
         });
+
         // user clicks to return to the main page
         btnReturn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -183,6 +217,31 @@ public class DetailActivity extends AppCompatActivity {
 
                 allComments.addAll(commentList);
                 commentAdapter.notifyDataSetChanged();
+
+            }
+        });
+    }
+    // method to save a like
+    private void saveLike(Post post, int like, int index, ParseUser currentUser) {
+        post.setNumLikes(like);
+
+        if (index == -1){
+            post.setListLikers(currentUser);
+            likers.add(currentUser.getObjectId());
+        }else {
+            likers.remove(index);
+            post.removeItemListLikers(likers);
+        }
+
+        post.saveInBackground(new SaveCallback() {
+            @Override
+            public void done(ParseException e) {
+                if (e != null){
+                    Log.e(TAG, "Error while saving", e);
+                    Toast.makeText(context, "Error while saving", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                Log.i(TAG, likers.toString());
 
             }
         });

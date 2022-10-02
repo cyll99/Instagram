@@ -157,6 +157,19 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
                 }
             });
 
+            // set color for heart
+            try{
+                if (likers.contains(currentUser.getObjectId())) {
+                    Drawable drawable = ContextCompat.getDrawable(context, R.drawable.ic_heart);
+                    icon_heart.setImageDrawable(drawable);
+                }else {
+                    Drawable drawable = ContextCompat.getDrawable(context, R.drawable.heart_outline);
+                    icon_heart.setImageDrawable(drawable);
+                }
+            }catch (NullPointerException e){
+                e.printStackTrace();
+            }
+
             icon_heart.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
